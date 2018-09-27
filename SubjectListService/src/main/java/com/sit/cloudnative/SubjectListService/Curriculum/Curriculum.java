@@ -34,7 +34,16 @@ public class Curriculum {
     private String curriculumDescription;
 
     public Curriculum() {
-     
+
+    }
+
+    public Curriculum(Long id, String curriculumId, String curriculumName, String curriculumCode,
+            String curriculumDescription) {
+        this.id = id;
+        this.curriculumId = curriculumId;
+        this.curriculumName = curriculumName;
+        this.curriculumCode = curriculumCode;
+        this.curriculumDescription = curriculumDescription;
     }
 
     public String getCurriculumId() {
