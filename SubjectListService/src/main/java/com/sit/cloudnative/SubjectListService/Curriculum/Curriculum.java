@@ -15,11 +15,7 @@ public class Curriculum {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank
-    @Column(name = "curriculumId")
-    private String curriculumId;
+    private Long curriculumId;
 
     @NotBlank
     @Column(name = "curriculumName")
@@ -37,20 +33,11 @@ public class Curriculum {
 
     }
 
-    public Curriculum(Long id, String curriculumId, String curriculumName, String curriculumCode,
-            String curriculumDescription) {
-        this.id = id;
-        this.curriculumId = curriculumId;
-        this.curriculumName = curriculumName;
-        this.curriculumCode = curriculumCode;
-        this.curriculumDescription = curriculumDescription;
-    }
-
-    public String getCurriculumId() {
+    public Long getCurriculumId() {
         return this.curriculumId;
     }
 
-    public void setCurriculumId(String curriculumId) {
+    public void setCurriculumId(Long curriculumId) {
         this.curriculumId = curriculumId;
     }
 
