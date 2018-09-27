@@ -1,5 +1,7 @@
 package com.sit.cloudnative.SubjectListService.curriculum;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.sit.cloudnative.SubjectListService.adapter.ProgramAdapter;
@@ -21,7 +23,9 @@ public class CurriculumService implements CurriculumServiceInterface {
 
     @Override
     public List<Curriculum> getAllCurriculum() {
-		return null;
+        Curriculum[] curriculum = programAdapter.getProgramList();
+         return new ArrayList<>(Arrays.asList(curriculum));
+
 	}
 
 
