@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CurriculumRepository extends JpaRepository<Curriculum, Long> {
-
+    
 }
