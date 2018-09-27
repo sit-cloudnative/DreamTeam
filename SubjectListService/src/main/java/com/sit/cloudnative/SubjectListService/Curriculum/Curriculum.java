@@ -1,4 +1,4 @@
-package com.sit.cloudnative.SubjectListService.Curriculum;
+package com.sit.cloudnative.SubjectListService.curriculum;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
