@@ -8,10 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "curriculums")
 
 public class Curriculum {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +32,16 @@ public class Curriculum {
     @NotBlank
     @Column(name = "curriculumDescription")
     private String curriculumDescription;
-
-    public Curriculum() {
-
+    
+    @JsonCreator
+    public Curriculum(@JsonProperty("program_id")long id,
+    @JsonProperty("program_name")String name,
+    @JsonProperty("program_code")String code,
+    @JsonProperty("program_description")String description) {
+        this.curriculumId = id;
+        this.curriculumName = name;
+        this.curriculumCode = code;
+        this.curriculumDescription = description;
     }
 
     public Long getCurriculumId() {
