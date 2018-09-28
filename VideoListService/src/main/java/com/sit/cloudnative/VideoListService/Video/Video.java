@@ -8,6 +8,7 @@ package com.sit.cloudnative.VideoListService.Video;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -44,18 +45,18 @@ public class Video implements Serializable{
 
     @JsonCreator
     public Video(@JsonProperty("video_id") Long videoId,
-            @JsonProperty("teacher") Teacher lecturer,
+            @JsonProperty("teacher") Map<String, String> lecturer,
             @JsonProperty("video_name") String videoName, 
-            @JsonProperty("room") Object room, 
+            @JsonProperty("room") Map<String, String> room, 
             @JsonProperty("video_starttime") String startTime,
             @JsonProperty("video_endtime") String endTime,
-            @JsonProperty("player") Object videoPath) {
+            @JsonProperty("player") Map<String, String> videoPath) {
         this.videoId = videoId;
-        this.lecturer = lecturer.getTeacherName();
+        this.lecturer = lecturer.get("teacher_name");
         this.videoName = videoName;
-        this.room = room.toString();
+        this.room = room.get("room_name");
         this.period = startTime + " - " + endTime;
-        this.videoPath = videoPath.toString();
+        this.videoPath = videoPath.get("hls_url");
     }
     
     public Long getId() {
@@ -122,35 +123,4 @@ public class Video implements Serializable{
         this.videoPath = videoPath;
     }
 
-}
-
-class Teacher implements Serializable{
-    private Long teacherId;
-    private String teacherName;
-
-    public Teacher() {
-    }
-
-    @JsonCreator
-    public Teacher(@JsonProperty("teacher_id") Long teacherId, 
-            @JsonProperty("teacher_name") String teacherName) {
-        this.teacherId = teacherId;
-        this.teacherName = teacherName;
-    }
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
-    }  
 }
