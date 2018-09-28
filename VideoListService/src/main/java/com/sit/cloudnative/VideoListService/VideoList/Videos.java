@@ -2,17 +2,29 @@ package com.sit.cloudnative.VideoListService.VideoList;
 
 import java.io.Serializable;
 import java.util.Map;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@Entity
 public class Videos implements Serializable {
+
+    @Id
     private int videoId;
+
+    @NotBlank
+    @Column(name="videoName")
     private String videoName;
+
+    @NotBlank
+    @Column(name="lecturer")
     private String lecturer;
+
+    @NotBlank
+    @Column(name="videoThumbnail")
     private String videoThumbnail;
 
     public Videos(){}
