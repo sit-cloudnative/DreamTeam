@@ -1,5 +1,6 @@
 package com.sit.cloudnative.SubjectListService.SubjectList;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,8 +12,8 @@ public class SubjectListAdapter {
   public List<SubjectList> getSubjectDetail(long curriculumId){
     RestTemplate restTemplate = new RestTemplate();
     String url = "https://ngelearning.sit.kmutt.ac.th/api/v0/program/"+curriculumId+"/subjects";
-    List<SubjectList> subjectList = restTemplate.getForObject(url,List.class);
-    return subjectList;
+    SubjectList[] subjectList = restTemplate.getForObject(url,SubjectList[].class);
+    return Arrays.asList(subjectList);
   }
 
 }

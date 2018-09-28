@@ -1,18 +1,37 @@
 package com.sit.cloudnative.SubjectListService.SubjectList;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SubjectList{
     private long subjectId;
     private String subjectName;
+    private String subjectDes;
     private boolean isFavorite;
 
-    public SubjectList(long subjectId, String subjectName,boolean isFavorite){
+    @JsonCreator
+    public SubjectList(@JsonProperty("subject_id") long subjectId,@JsonProperty("subject_name") String subjectName,@JsonProperty("subject_description") String subjectDes){
         this.subjectId = subjectId;
         this.subjectName = subjectName;
-        this.isFavorite = isFavorite;
+        this.subjectDes = subjectDes;
+        this.isFavorite = false;
     }
 
-    public long getSubjectId(){
+    /**
+     * @return the subjectDes
+     */
+    public String getSubjectDes() {
+        return subjectDes;
+    }
+
+    /**
+     * @param subjectDes the subjectDes to set
+     */
+    public void setSubjectDes(String subjectDes) {
+        this.subjectDes = subjectDes;
+    }
+
+    public long getSubjectId() {
         return subjectId;
     }
     public String getSubName(){
