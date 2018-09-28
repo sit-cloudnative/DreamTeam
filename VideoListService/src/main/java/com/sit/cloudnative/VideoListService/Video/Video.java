@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 public class Video implements Serializable{
     
     @Id
-    private Long id;
+    private Long videoId;
     
     private int avgTime;
     
@@ -43,12 +43,14 @@ public class Video implements Serializable{
     }
 
     @JsonCreator
-    public Video(@JsonProperty("teacher") Teacher lecturer,
+    public Video(@JsonProperty("video_id") Long videoId,
+            @JsonProperty("teacher") Teacher lecturer,
             @JsonProperty("video_name") String videoName, 
             @JsonProperty("room") Object room, 
             @JsonProperty("video_starttime") String startTime,
             @JsonProperty("video_endtime") String endTime,
             @JsonProperty("player") Object videoPath) {
+        this.videoId = videoId;
         this.lecturer = lecturer.getTeacherName();
         this.videoName = videoName;
         this.room = room.toString();
@@ -57,11 +59,11 @@ public class Video implements Serializable{
     }
     
     public Long getId() {
-        return id;
+        return videoId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long videoId) {
+        this.videoId = videoId;
     }
 
     public int getAvgTime() {
@@ -150,7 +152,5 @@ class Teacher implements Serializable{
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
-    }
-    
-    
+    }  
 }
