@@ -20,6 +20,7 @@ public class SubjectList{
     /**
      * @return the subjectDes
      */
+    @JsonProperty("subject_description")
     public String getSubjectDes() {
         return subjectDes;
     }
@@ -27,23 +28,30 @@ public class SubjectList{
     /**
      * @param subjectDes the subjectDes to set
      */
+    @JsonProperty("subject_description")
     public void setSubjectDes(String subjectDes) {
         this.subjectDes = subjectDes;
     }
 
+    @JsonProperty("subject_id")
     public long getSubjectId() {
         return subjectId;
     }
+
+    @JsonProperty("subject_name")
     public String getSubName(){
         return subjectName;
     }
     public boolean getIsFavorite(){
         return isFavorite;
     }
+
+    @JsonProperty("subject_id")
     public void setSubjectId(long subjectId) {
         this.subjectId = subjectId;
     }
 
+    @JsonProperty("subject_name")
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
