@@ -1,7 +1,5 @@
 package com.sit.cloudnative.VideoListService.VideoList;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
