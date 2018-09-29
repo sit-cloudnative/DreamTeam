@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "4ffe34dc-4cee-473a-92f2-de2a2d3b3971",
+		"name": "SubjectListService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SubjectList",
+			"item": [
+				{
+					"name": "GetSubjectListByCurriculumId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": [
+						{
+							"name": "GetSubjectListByCurriculumId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://localhost:8080/subjectlist/curriculum/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"subjectlist",
+										"curriculum",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 28 Sep 2018 17:35:53 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "[{\"subject_id\":2,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"IT Fundamental\"},{\"subject_id\":5,\"subject_description\":\"This course studies general concepts for computer programming such as statement, variable, constant, operator, expression, function; data types: scalar, structured data type, array; pointer; program structure: sequence, selection, repetition, subroutine call; program module: user defined procedure/function, parameter passing; file operations: sequential file operation, random access file operation. The laboratory component covers development of small programs using a popular programming language, such as Java or C, testing, debugging, and development tools.\",\"isFavorite\":false,\"subName\":\"Computer Programming 1\"},{\"subject_id\":10,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Discrete Mathematics for Information Technology\"},{\"subject_id\":14,\"subject_description\":\"This course provides an overview of computer network technologies. The course begins with an overview of networking standards, the OSI model and the Internet model and proceeds on to cover the basic model of network components and concepts. Emphasis is made on LAN technologies including the physical layer, switching, and basic routing. The laboratory component for this course covers LAN switching and basic routing technologies such as bridging, spanning tree protocol, IP addressing, subnet and static and dynamic routing.\",\"isFavorite\":false,\"subName\":\"Network I\"},{\"subject_id\":159,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Software Development Process I\"},{\"subject_id\":38,\"subject_description\":\"Information management concepts and fundamentals, properties of data, database system, data analysis/collection/retention, information backup and recovery, database query language such as SQL and XML, query and reports, data organization architecture such as hierarchical / network / relational model, object database, normal form, data modeling, reengineering of databases, standardized modeling , CASE tools, Data integration, data warehouse. The laboratory component cover uses of database management system, query by query language, database application development using some CASE tool.\",\"isFavorite\":false,\"subName\":\"Database Management Systems \"},{\"subject_id\":57,\"subject_description\":\"This course covers the management of IT services in an enterprise: acquisition/sourcing, users, organization behavior and organization management, service level agreement, techniques and technology for IT services, cost estimation, critical success factors and case studies of IT services organization.\",\"isFavorite\":false,\"subName\":\"Information Technology Services Management\"},{\"subject_id\":44,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Web Programming\"},{\"subject_id\":65,\"subject_description\":\"Introduction to the basic concepts of human-computer interaction, including human factors, performance analysis, cognitive processing, usability studies, environment, HCI aspects of application domains, Human centered evaluation, developing effective interfaces, usability standards, emerging technologies, Human centered software, providing access for those with sensory disabilities. The laboratory component covers effective user interface design for devices and software.\",\"isFavorite\":false,\"subName\":\"Human Computer Interaction\"},{\"subject_id\":157,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Information Technology Seminar I\"},{\"subject_id\":119,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Information Assurance and Security I\"},{\"subject_id\":70,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"IT Professional Communication\"},{\"subject_id\":60,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Cloud-Native Application Development\"},{\"subject_id\":167,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Management Information Systems\"},{\"subject_id\":109,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Big Data\"},{\"subject_id\":172,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Data Center System Design\"},{\"subject_id\":193,\"subject_description\":\"\",\"isFavorite\":false,\"subName\":\"Mathematics I\"}]"
+						}
+					]
+				}
+			]
+		}
+	]
+}
