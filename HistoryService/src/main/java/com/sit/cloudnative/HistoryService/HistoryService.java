@@ -13,8 +13,7 @@ public class HistoryService{
         return history;
     }
 
-    public boolean update(History history){
-        historyRepository.save(history);
-        return true;
+    public long update(History history){
+        return historyRepository.save(history).getVideoId();
     }
 }
