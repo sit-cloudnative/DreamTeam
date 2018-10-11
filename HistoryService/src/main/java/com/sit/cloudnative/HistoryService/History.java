@@ -15,10 +15,10 @@ class History implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int historyId;
+    private long historyId;
 
     @NotBlank
-    private int videoId;
+    private long videoId;
 
     @NotBlank
     private String videoName;
@@ -33,7 +33,7 @@ class History implements Serializable {
         super();
     }
 
-    public int getHistoryId() {
+    public long getHistoryId() {
         return historyId;
     }
 
@@ -53,7 +53,7 @@ class History implements Serializable {
         return videoName;
     }
 
-    public int getVideoId() {
+    public long getVideoId() {
         return videoId;
     }
 
@@ -73,11 +73,11 @@ class History implements Serializable {
         this.videoName = videoName;
     }
 
-    public void setVideoId(int videoId) {
+    public void setVideoId(long videoId) {
         this.videoId = videoId;
     }
 
-    public void setHistoryId(int historyId) {
+    public void setHistoryId(long historyId) {
         this.historyId = historyId;
     }
 }
