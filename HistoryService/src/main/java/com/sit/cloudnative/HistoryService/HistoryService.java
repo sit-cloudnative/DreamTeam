@@ -20,12 +20,13 @@ public class HistoryService{
     }
 
     public int getCheckpointInSecond(long studentId, long videoId){
-        System.out.print("***************Im here***************");
-        History historyObject = historyRepository.findByStudentIdAndVideoId(studentId, videoId);
-        System.out.print("**********************************************");
-        System.out.print(historyObject.getCheckpoint());
-        System.out.print("**********************************************");
-        int checkpointInSecond = historyObject.getCheckpoint();
+        int checkpointInSecond;
+        try{
+            History historyObject = historyRepository.findByStudentIdAndVideoId(studentId, videoId);
+            checkpointInSecond = historyObject.getCheckpoint();
+        }catch(NullPointerException e){
+            checkpointInSecond =  -1;
+        }
         return checkpointInSecond;
     }
 }
