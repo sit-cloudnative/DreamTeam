@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-    History findByStudentIdAndVideoId(long studentId, long videoId);
+    List<History> findByStudentIdAndVideoId(long studentId, long videoId);
 }
