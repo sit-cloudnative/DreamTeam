@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,5 +20,12 @@ public class HistoryController {
     @PutMapping("/history/checkpoint")
     public ResponseEntity<Long> updateCheckpoint(@Validated @RequestBody History history){
         return new ResponseEntity<>(historyService.update(history), HttpStatus.OK);
+    }
+
+    @GetMapping("/history/checkpoint")
+    public ResponseEntity<Integer> getCheckpoint(@RequestParam("studentId") long studentId,@RequestParam("videoId") long videoId){
+        int checkpointInSecond = historyService.getCheckpointInSecond(studentId, videoId);
+        
+        return new ResponseEntity<Integer>(checkpointInSecond,HttpStatus.OK);
     }
 }
