@@ -33,7 +33,6 @@ class History implements Serializable {
     private int checkpoint;
 
     public History() {
-        super();
     }
 
     public long getHistoryId() {
