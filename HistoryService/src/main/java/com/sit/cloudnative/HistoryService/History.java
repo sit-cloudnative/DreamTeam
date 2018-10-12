@@ -18,6 +18,9 @@ class History implements Serializable {
     private long historyId;
 
     @NotBlank
+    private long studentId;
+     
+    @NotBlank
     private long videoId;
 
     @NotBlank
