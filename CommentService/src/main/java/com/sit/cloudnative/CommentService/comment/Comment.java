@@ -5,67 +5,50 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 @Entity
 @Table(name = "Comments")
-public class Comment  {
-    private static final long serialVersionUID = 1L;
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotBlank
     @Column(name = "content")
     private String content;
 
-    @NotBlank
     @Column(name = "postUserId")
-    private long postUserId;
+    private Long postUserId;
 
     @Column(name = "videoId")
     private int videoId;
 
-
-
-    
-
     public Comment() {
     }
 
-    public Comment(int commentId, String content, long postUserId) {
+    public Comment(Long commentId, String content, long postUserId) {
         this.id = commentId;
         this.content = content;
         this.postUserId = postUserId;
-      
-       
+
     }
 
     /**
      * @return int return the id
      */
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -112,7 +95,3 @@ public class Comment  {
     }
 
 }
-
-  
-  
-   
