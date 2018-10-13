@@ -15,10 +15,17 @@ public class HistoryService{
         return history;
     }
 
-    public long update(History history){
-        return historyRepository.save(history).getVideoId();
+    public History create(History history){
+        return historyRepository.save(history);
     }
 
+    public long update(History history){
+        System.out.println("******************************");
+        System.out.println(history.getStudentId());
+        System.out.println("******************************");
+        return historyRepository.save(history).getVideoId();
+    }
+    
     public int getCheckpointInSecond(long studentId, long videoId){
         int checkpointInSecond;
         try{
