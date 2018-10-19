@@ -1,9 +1,17 @@
 {
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "axios": "^0.18.0",
-    "next": "^7.0.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-player": "^1.6.6"
+    "next": "^6.0.2",
+    "nextjs": "^0.0.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-player": "^1.6.6",
+    "styled-components": "^4.0.2"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   }
 }
