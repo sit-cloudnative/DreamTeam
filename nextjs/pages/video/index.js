@@ -2,7 +2,7 @@ import React from 'react'
 import axios from '../../util/axios'
 import Video from './video'
 import NavBar from '../NavBar'
-
+import Videotitle from '../../components/videotitle'
 export default class index extends React.Component{
   constructor(){
     super()
@@ -10,13 +10,17 @@ export default class index extends React.Component{
       video:{
         player:{
           hls_url:''
+        },
+        teacher:{
+          teacher_name:''
         }
       }
     }
   }
 
   async componentDidMount() {
-    let {data}  =await axios.get('/video/8380')
+    const videoId = this.props.url.query.video_id
+    let {data}  =await axios.get(`/video/${videoId}`)
     this.setState({video:data})
     console.log(this.state.video)
 
@@ -26,14 +30,13 @@ export default class index extends React.Component{
     return (
       <div>
         <NavBar />
-        {this.state.video.video_name}
-        {console.log('teacher',this.state.video.teacher.teacher_name)}
         <Videotitle
         videotitle={this.state.video.video_name}
         teacher={this.state.video.teacher.teacher_name}
          />
- 
-        <Video video={this.state.video} playing controls />
+        <div className='justify-content-md-center' style={{width:'100%',display:'flex'}}>
+          <Video style={{justifyContent:'center'}} video={this.state.video} playing controls />
+        </div>
       </div>
     )
   }

@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from '../util/axios'
 import ReactPlayer from 'react-player'
-import Videotitle from '../components/videotitle'
 import NavBar from './NavBar'
 
 export default class index extends React.Component{
@@ -25,11 +24,7 @@ export default class index extends React.Component{
   render(){
     return (
       <div className ="container">
-        <img style={{width:'250px'}} src={this.state.video.video_thumbnail}></img>
-        <h2>{this.state.video.video_name}</h2>
-              {this.state.video.video_date}
-        <ReactPlayer url={this.state.video.player.hls_url} playing controls />
-        
+        indexpage
       </div>
     )
   }
