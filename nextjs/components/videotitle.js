@@ -5,7 +5,7 @@ export default (props) => (
                 <i className="fa fa-caret-square-o-right" style="font-size:36px"></i>
                 {props.videotitle}
             </h1>
-            <h3><b>Teacher:</b>{props.videoTitle}</h3>
+            <h3><b>Teacher:</b>{props.teacher}</h3>
         </div>
     </div>
 )

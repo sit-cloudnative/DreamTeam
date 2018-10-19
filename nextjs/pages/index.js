@@ -27,12 +27,7 @@ export default class index extends React.Component{
       <div className ="container">
         <img style={{width:'250px'}} src={this.state.video.video_thumbnail}></img>
         <h2>{this.state.video.video_name}</h2>
-        {console.log('teacher')}
-        <Videotitle
-        videotitle={this.state.video.video_name}
-        teacher={this.state.video.teacher.teacher_name}
-         />
-        {this.state.video.video_date}
+              {this.state.video.video_date}
         <ReactPlayer url={this.state.video.player.hls_url} playing controls />
         
       </div>

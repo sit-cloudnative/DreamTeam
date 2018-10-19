@@ -5273,13 +5273,20 @@ function (_React$Component) {
           fileName: _jsxFileName,
           lineNumber: 28
         }
-      }), this.state.video.video_name, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__video__["a" /* default */], {
+      }), this.state.video.video_name, console.log('teacher', this.state.video.teacher.teacher_name), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Videotitle, {
+        videotitle: this.state.video.video_name,
+        teacher: this.state.video.teacher.teacher_name,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 31
+        }
+      }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__video__["a" /* default */], {
         video: this.state.video,
         playing: true,
         controls: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30
+          lineNumber: 36
         }
       }));
     }

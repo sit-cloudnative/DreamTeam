@@ -27,6 +27,12 @@ export default class index extends React.Component{
       <div>
         <NavBar />
         {this.state.video.video_name}
+        {console.log('teacher',this.state.video.teacher.teacher_name)}
+        <Videotitle
+        videotitle={this.state.video.video_name}
+        teacher={this.state.video.teacher.teacher_name}
+         />
+ 
         <Video video={this.state.video} playing controls />
       </div>
     )
