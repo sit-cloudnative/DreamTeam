@@ -72,13 +72,63 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/videotitle.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _jsxFileName = "C:\\project\\DreamTeam\\nextjs\\components\\videotitle.js";
+
+/* harmony default export */ __webpack_exports__["a"] = (function (props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    className: "row",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 2
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+    className: "offset-3 col-6 offset-3",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 3
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", {
+    className: "fa fa-caret-square-o-right",
+    style: {
+      fontSize: '36px'
+    },
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5
+    }
+  }), props.videotitle), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h3", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    }
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("b", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8
+    }
+  }, "Teacher:"), props.teacher)));
+});
+
+/***/ }),
+
 /***/ "./pages/NavBar.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-var _jsxFileName = "/Users/bank/Documents/ByBerry/ITKMUTT/INT491/DreamTeam/nextjs/pages/NavBar.js";
+var _jsxFileName = "C:\\project\\DreamTeam\\nextjs\\pages\\NavBar.js";
 
 
 var NavBar = function NavBar(props) {
@@ -262,8 +312,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_axios__ = __webpack_require__("./util/axios.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__video__ = __webpack_require__("./pages/video/video.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavBar__ = __webpack_require__("./pages/NavBar.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_videotitle__ = __webpack_require__("./components/videotitle.js");
 
-var _jsxFileName = "/Users/bank/Documents/ByBerry/ITKMUTT/INT491/DreamTeam/nextjs/pages/video/index.js";
+var _jsxFileName = "C:\\project\\DreamTeam\\nextjs\\pages\\video\\index.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -286,6 +337,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var index =
 /*#__PURE__*/
 function (_React$Component) {
@@ -301,6 +353,9 @@ function (_React$Component) {
       video: {
         player: {
           hls_url: ''
+        },
+        teacher: {
+          teacher_name: ''
         }
       }
     };
@@ -313,16 +368,17 @@ function (_React$Component) {
       var _componentDidMount = _asyncToGenerator(
       /*#__PURE__*/
       __WEBPACK_IMPORTED_MODULE_0__babel_runtime_regenerator___default.a.mark(function _callee() {
-        var _ref, data;
+        var videoId, _ref, data;
 
         return __WEBPACK_IMPORTED_MODULE_0__babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return __WEBPACK_IMPORTED_MODULE_2__util_axios__["a" /* default */].get('/video/8380');
+                videoId = this.props.url.query.video_id;
+                _context.next = 3;
+                return __WEBPACK_IMPORTED_MODULE_2__util_axios__["a" /* default */].get("/video/".concat(videoId));
 
-              case 2:
+              case 3:
                 _ref = _context.sent;
                 data = _ref.data;
                 this.setState({
@@ -330,7 +386,7 @@ function (_React$Component) {
                 });
                 console.log(this.state.video);
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -348,29 +404,42 @@ function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 31
         }
       }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__NavBar__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 32
         }
-      }), this.state.video.video_name, console.log('teacher', this.state.video.teacher.teacher_name), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Videotitle, {
+      }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_videotitle__["a" /* default */], {
         videotitle: this.state.video.video_name,
         teacher: this.state.video.teacher.teacher_name,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 33
         }
-      }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__video__["a" /* default */], {
+      }), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
+        className: "justify-content-md-center",
+        style: {
+          width: '100%',
+          display: 'flex'
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 37
+        }
+      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__video__["a" /* default */], {
+        style: {
+          justifyContent: 'center'
+        },
         video: this.state.video,
         playing: true,
         controls: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 38
         }
-      }));
+      })));
     }
   }]);
 
@@ -389,7 +458,7 @@ function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_player__ = __webpack_require__("react-player");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_player___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_player__);
-var _jsxFileName = "/Users/bank/Documents/ByBerry/ITKMUTT/INT491/DreamTeam/nextjs/pages/video/video.js";
+var _jsxFileName = "C:\\project\\DreamTeam\\nextjs\\pages\\video\\video.js";
 
 
 
@@ -423,7 +492,6 @@ var Video = function Video(props) {
 
 var instance = __WEBPACK_IMPORTED_MODULE_0_axios___default.a.create({
   baseURL: 'https://ngelearning.sit.kmutt.ac.th/api/v0',
-  timeout: 1000,
   headers: {}
 });
 /* harmony default export */ __webpack_exports__["a"] = (instance);
