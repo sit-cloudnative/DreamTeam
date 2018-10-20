@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from '../../util/axios'
-import Video from './video'
-import NavBar from '../NavBar'
-import Videotitle from '../../components/videotitle'
+import Video from '../../components/Video'
+import NavBar from '../../components/NavBar'
+import VideoTitle from '../../components/VideoTitle'
 import { withRouter } from 'next/router'
 
 export default class index extends React.Component{
@@ -39,6 +39,7 @@ export default class index extends React.Component{
         <div className='justify-content-md-center' style={{width:'100%',display:'flex'}}>
           <Video style={{justifyContent:'center'}} video={this.state.video} playing controls />
         </div>
+        
       </div>
     )
   }
