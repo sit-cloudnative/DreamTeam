@@ -14,13 +14,7 @@ export default class index extends React.Component{
       }
     }
   }
-
-  async componentDidMount() {
-    let {data}  =await axios.get('/video/8380')
-    this.setState({video:data})
-
-  }
-
+  
   render(){
     return (
       <div className ="container">

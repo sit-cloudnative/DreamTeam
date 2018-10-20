@@ -3,26 +3,28 @@ import axios from '../../util/axios'
 import Video from './video'
 import NavBar from '../NavBar'
 import Videotitle from '../../components/videotitle'
+import { withRouter } from 'next/router'
+
 export default class index extends React.Component{
   constructor(){
     super()
     this.state = {
       video:{
-        player:{
-          hls_url:''
-        },
+        player:'',
         teacher:{
-          teacher_name:''
+          teacher_name:'-'
         }
       }
     }
   }
 
   async componentDidMount() {
+    const {router} = this.props
     const videoId = this.props.url.query.video_id
     let {data}  =await axios.get(`/video/${videoId}`)
     this.setState({video:data})
-    console.log(this.state.video)
+    console.log(this.state.video.player)
+    console.log('router : ',router)
 
   }
 
