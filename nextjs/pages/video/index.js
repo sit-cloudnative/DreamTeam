@@ -32,7 +32,7 @@ export default class index extends React.Component{
     return (
       <div>
         <NavBar />
-        <Videotitle
+        <VideoTitle
         videotitle={this.state.video.video_name}
         teacher={this.state.video.teacher.teacher_name}
          />
