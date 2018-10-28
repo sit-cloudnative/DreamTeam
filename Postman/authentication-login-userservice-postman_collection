@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "269a0464-dc39-45e0-9d7d-697d0852c0d0",
+		"name": "Dreamteam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "Authentication Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63eae9f7-8135-4f09-8280-728586fbb2e2",
+								"exec": [
+									"pm.test(\"Login success...\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        var student_id = jsonData.studentId;",
+									"        var firstname = jsonData.firstname;",
+									"        var lastname = jsonData.lastname;",
+									"        var department = jsonData.department;",
+									"        var faculty = jsonData.faculty;",
+									"        var studentYear = jsonData.studentYear;",
+									"        pm.expect(student_id).to.eql(59130500128);",
+									"        pm.expect(firstname).to.eql(\"Tanapat\");",
+									"        pm.expect(lastname).to.eql(\"Choochot\");",
+									"        pm.expect(department).to.eql(\"IT\");",
+									"        pm.expect(faculty).to.eql(\"SIT\");",
+									"        pm.expect(studentYear).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"59130500128\",\n\t\"password\" : \"82100503195\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Login with username and password"
+					},
+					"response": [
+						{
+							"name": "Authentication Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"59130500128\",\n\t\"password\" : \"82100503195\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 28 Oct 2018 11:12:48 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"studentId\": 59130500128,\n    \"firstname\": \"Tanapat\",\n    \"lastname\": \"Choochot\",\n    \"department\": \"IT\",\n    \"faculty\": \"SIT\",\n    \"studentYear\": 3\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
