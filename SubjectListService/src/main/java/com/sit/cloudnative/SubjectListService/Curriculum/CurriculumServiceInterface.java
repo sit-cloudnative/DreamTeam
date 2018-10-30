@@ -7,5 +7,5 @@ public interface CurriculumServiceInterface {
     Curriculum getCurriculumById(long curriculumId);
 
     List<Curriculum> getAllCurriculum();
-    
+
 }

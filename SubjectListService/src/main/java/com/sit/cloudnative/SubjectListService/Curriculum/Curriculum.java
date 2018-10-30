@@ -7,19 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "curriculums")
-
-public class Curriculum {
-
+public class Curriculum implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long curriculumId;
+    private long curriculumId;
 
     @NotBlank
     @Column(name = "curriculumName")
@@ -32,23 +30,26 @@ public class Curriculum {
     @NotBlank
     @Column(name = "curriculumDescription")
     private String curriculumDescription;
-    
+
+    public Curriculum() {
+    }
+
     @JsonCreator
-    public Curriculum(@JsonProperty("program_id")long id,
-    @JsonProperty("program_name")String name,
-    @JsonProperty("program_code")String code,
-    @JsonProperty("program_description")String description) {
+    public Curriculum(@JsonProperty("program_id") long id,
+            @JsonProperty("program_name") String name,
+            @JsonProperty("program_code") String code,
+            @JsonProperty("program_description") String description) {
         this.curriculumId = id;
         this.curriculumName = name;
         this.curriculumCode = code;
         this.curriculumDescription = description;
     }
 
-    public Long getCurriculumId() {
+    public long getCurriculumId() {
         return this.curriculumId;
     }
 
-    public void setCurriculumId(Long curriculumId) {
+    public void setCurriculumId(long curriculumId) {
         this.curriculumId = curriculumId;
     }
 
