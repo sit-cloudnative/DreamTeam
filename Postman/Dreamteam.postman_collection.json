@@ -165,6 +165,83 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "SubjectList Service",
+			"item": [
+				{
+					"name": "/curriculum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/curriculum",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curriculum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/curriculum/{curriculumId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/curriculum/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curriculum",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/subjectlist/curriculum/{curriculumId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/subjectlist/curriculum/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subjectlist",
+								"curriculum",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
