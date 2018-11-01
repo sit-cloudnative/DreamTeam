@@ -26,7 +26,7 @@ public class Comment {
     private Long postUserId;
 
     @Column(name = "videoId")
-    private int videoId;
+    private Long videoId;
 
     public Comment() {
     }
@@ -83,14 +83,14 @@ public class Comment {
     /**
      * @return int return the videoId
      */
-    public int getVideoId() {
+    public Long getVideoId() {
         return videoId;
     }
 
     /**
      * @param videoId the videoId to set
      */
-    public void setVideoId(int videoId) {
+    public void setVideoId(Long videoId) {
         this.videoId = videoId;
     }
 

@@ -20,6 +20,14 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    // // Get Comment of video
+    @GetMapping("/comment/{video_id}")
+    public ResponseEntity<List<Comment>> getComment(@PathVariable("video_id") Long videoId) {
+        List<Comment> comments;
+        comments = commentService.getCommentByVideoId(videoId);
+        return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
+    }
+
     // // Get All Comment
     @GetMapping("/comments")
     public ResponseEntity<List<Comment>> getAllComments() {

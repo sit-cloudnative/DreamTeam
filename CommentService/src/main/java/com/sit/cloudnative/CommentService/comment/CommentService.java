@@ -1,7 +1,6 @@
 package com.sit.cloudnative.CommentService.comment;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,6 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     public List<Comment> getAllComments() {
-
         return commentRepository.findAll();
     }
 
@@ -26,6 +24,10 @@ public class CommentService {
     public Comment getCommentById(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+    }
+
+    public List<Comment> getCommentByVideoId(Long videoId) {
+        return commentRepository.findByVideoId(videoId);
     }
 
 }
