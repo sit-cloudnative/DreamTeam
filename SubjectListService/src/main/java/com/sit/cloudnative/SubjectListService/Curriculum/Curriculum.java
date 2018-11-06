@@ -1,34 +1,17 @@
 package com.sit.cloudnative.SubjectListService.curriculum;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 
-@Entity
-@Table(name = "curriculums")
-public class Curriculum implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Curriculum {
+
     private long curriculumId;
 
-    @NotBlank
-    @Column(name = "curriculumName")
     private String curriculumName;
 
-    @NotBlank
-    @Column(name = "curriculumCode")
     private String curriculumCode;
 
-    @NotBlank
-    @Column(name = "curriculumDescription")
     private String curriculumDescription;
 
     public Curriculum() {
