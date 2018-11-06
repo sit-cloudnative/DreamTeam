@@ -7,49 +7,33 @@ package com.sit.cloudnative.VideoListService.Video;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 import java.util.Map;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
-@Entity
-@Table(name = "videos")
-public class Video implements Serializable{
-    
-    @Id
+public class Video {
+
     private Long videoId;
-    
+
     private int avgTime;
-    
+
     private int watched;
-    
-    @NotBlank
+
     private String lecturer;
-    
-    @NotBlank
+
     private String videoName;
-    
-    @NotBlank
+
     private String room;
-    
-    @NotBlank
+
     private String period;
-    
-    @NotBlank
+
     private String videoPath;
 
     public Video() {
     }
 
     @JsonCreator
-    public Video(@JsonProperty("video_id") Long videoId,
-            @JsonProperty("teacher") Map<String, String> lecturer,
-            @JsonProperty("video_name") String videoName, 
-            @JsonProperty("room") Map<String, String> room, 
-            @JsonProperty("video_starttime") String startTime,
-            @JsonProperty("video_endtime") String endTime,
+    public Video(@JsonProperty("video_id") Long videoId, @JsonProperty("teacher") Map<String, String> lecturer,
+            @JsonProperty("video_name") String videoName, @JsonProperty("room") Map<String, String> room,
+            @JsonProperty("video_starttime") String startTime, @JsonProperty("video_endtime") String endTime,
             @JsonProperty("player") Map<String, String> videoPath) {
         this.videoId = videoId;
         this.lecturer = lecturer.get("teacher_name");
@@ -58,7 +42,7 @@ public class Video implements Serializable{
         this.period = startTime + " - " + endTime;
         this.videoPath = videoPath.get("hls_url");
     }
-    
+
     public Long getId() {
         return videoId;
     }
