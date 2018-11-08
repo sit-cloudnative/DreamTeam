@@ -40,10 +40,10 @@ class VideoList extends React.Component{
             <div>
                 <div className="row">
                     <div className="col-1"></div>
-                    <h2 className="">{this.state.subjectName}</h2>
-                    <button onClick={() => {this.getList(2)}}>subject it fun</button>
-                    <button onClick={() => {this.getList(5)}}>subject com pro 1</button>
-                    <button onClick={() => {this.getList(10)}} >subject discrete</button>
+                    <h3 className="">{this.state.subjectName}</h3>
+                    <button onClick={() => {this.getList(2)}} class="btn btn-dark">subject it fun</button>
+                    <button onClick={() => {this.getList(5)}} class="btn btn-dark">subject com pro 1</button>
+                    <button onClick={() => {this.getList(10)}} class="btn btn-dark">subject discrete</button>
                 </div>
                 <hr />
                 <div className="row">
