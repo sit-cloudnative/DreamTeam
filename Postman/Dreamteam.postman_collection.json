@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "e7b331f8-5432-4265-9dac-eedd5acb5c2c",
+		"name": "Dreamteam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "Authentication Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63eae9f7-8135-4f09-8280-728586fbb2e2",
+								"exec": [
+									"pm.test(\"Login success...\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        var student_id = jsonData.studentId;",
+									"        var firstname = jsonData.firstname;",
+									"        var lastname = jsonData.lastname;",
+									"        var department = jsonData.department;",
+									"        var faculty = jsonData.faculty;",
+									"        var studentYear = jsonData.studentYear;",
+									"        pm.expect(student_id).to.eql(59130500128);",
+									"        pm.expect(firstname).to.eql(\"Tanapat\");",
+									"        pm.expect(lastname).to.eql(\"Choochot\");",
+									"        pm.expect(department).to.eql(\"IT\");",
+									"        pm.expect(faculty).to.eql(\"SIT\");",
+									"        pm.expect(studentYear).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"59130500128\",\n\t\"password\" : \"82100503195\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Login with username and password"
+					},
+					"response": [
+						{
+							"name": "Authentication Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"59130500128\",\n\t\"password\" : \"82100503195\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 28 Oct 2018 11:12:48 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"studentId\": 59130500128,\n    \"firstname\": \"Tanapat\",\n    \"lastname\": \"Choochot\",\n    \"department\": \"IT\",\n    \"faculty\": \"SIT\",\n    \"studentYear\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "/user/{studentId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "894444a6-bec6-47fd-ad4b-a23fecc9e9d2",
+								"exec": [
+									"pm.test(\"get User form studentId 59130500128\", function () {",
+									"        var jsonData = pm.response.json();",
+									"        var student_id = jsonData.studentId;",
+									"        var firstname = jsonData.firstname;",
+									"        var lastname = jsonData.lastname;",
+									"        var department = jsonData.department;",
+									"        var faculty = jsonData.faculty;",
+									"        var studentYear = jsonData.studentYear;",
+									"        pm.expect(student_id).to.eql(59130500128);",
+									"        pm.expect(firstname).to.eql(\"Tanapat\");",
+									"        pm.expect(lastname).to.eql(\"Choochot\");",
+									"        pm.expect(department).to.eql(\"IT\");",
+									"        pm.expect(faculty).to.eql(\"SIT\");",
+									"        pm.expect(studentYear).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/59130500128",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"59130500128"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SubjectList Service",
+			"item": [
+				{
+					"name": "/curriculum",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "310b0363-fb75-44d1-bd77-e360de3599c9",
+								"exec": [
+									"pm.test(\"แสดง list ของ curriculum ทั้งหมด\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].curriculumId).to.eql(1);",
+									"    pm.expect(jsonData[0].curriculumName).to.eql(\"Bachelor of Science Program in Information Technology\");",
+									"    pm.expect(jsonData[0].curriculumCode).to.eql(\"B.Sc.IT\");",
+									"    pm.expect(jsonData[0].curriculumDescription).to.eql(\"\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/curriculums",
+							"protocol": "https",
+							"host": [
+								"dreamteam-gateway",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"subject-service",
+								"curriculums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/curriculum/{curriculumId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09a99723-21a8-4179-8d9f-ad0ea6b713d9",
+								"exec": [
+									"pm.test(\"แสดง curriculum ที่มี id 1\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.curriculumId).to.eql(1);",
+									"    pm.expect(jsonData.curriculumName).to.eql(\"Bachelor of Science Program in Information Technology\");",
+									"    pm.expect(jsonData.curriculumCode).to.eql(\"B.Sc.IT\");",
+									"    pm.expect(jsonData.curriculumDescription).to.eql(\"\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/curriculum/1",
+							"protocol": "https",
+							"host": [
+								"dreamteam-gateway",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"subject-service",
+								"curriculum",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/subjectlist/curriculum/{curriculumId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05535359-83bc-48a8-a84a-17984145b5a3",
+								"exec": [
+									"pm.test(\"แสดง subject list ของ curriculumId 1\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].subjectId).to.eql(2);",
+									"    pm.expect(jsonData[0].subjectName).to.eql(\"IT Fundamental\");",
+									"    pm.expect(jsonData[0].subjectDes).to.eql(\"\");",
+									"    pm.expect(jsonData[0].isFavorite).to.eql(false);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/subjectlist/curriculum/1",
+							"protocol": "https",
+							"host": [
+								"dreamteam-gateway",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"subject-service",
+								"subjectlist",
+								"curriculum",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Video Service",
+			"item": [
+				{
+					"name": "/videos/{subjectId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "90dc21e4-5fac-41c8-8259-3c13067401ea",
+								"exec": [
+									"pm.test(\"แสดง list video ของ subjectId 2\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[0].videoId).to.eql(8282);",
+									"    pm.expect(jsonData[0].videoName).to.eql(\"INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\");",
+									"    pm.expect(jsonData[0].lecturer).to.eql(\"Siam Yamsaengsung\");",
+									"    pm.expect(jsonData[0].videoThumbnail).to.eql(\"https://ngelearning.sit.kmutt.ac.th/api/video_image?id=8282\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-gateway.mybluemix.net/video-service/videos/2",
+							"protocol": "https",
+							"host": [
+								"dreamteam-gateway",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"video-service",
+								"videos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/video/{videoId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "371be581-7909-41e8-bf1b-47432ec5fcd1",
+								"exec": [
+									"pm.test(\"แสดง video ที่มี id 8263\", function(){",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.videoId).to.eql(8263);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-gateway.mybluemix.net/video-service/video/8263",
+							"protocol": "https",
+							"host": [
+								"dreamteam-gateway",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"video-service",
+								"video",
+								"8263"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ceee0e80-bd09-4f15-974a-7c3f368352eb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "274a1e99-944a-479a-bfa9-2011383969d6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
