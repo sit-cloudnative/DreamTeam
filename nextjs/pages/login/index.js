@@ -6,8 +6,27 @@ export default class extends React.Component {
     constructor() {
         super()
         this.state = {
-
+            user: {
+                username: '',
+                password: ''
+            }
         }
+        this.handleLogin = this.handleLogin.bind(this)
+    }
+    async handleLogin(e){
+        e.preventDefault()
+        console.log(this.state.username)
+        console.log(this.state.password)
+        const {data} =await axios({
+            method: 'post',
+            data: {
+                username: this.state.username,
+                password: this.state.password
+            },
+            url: 'user-service/login'
+        })
+
+        console.log(data)
     }
     render() {
         return (
@@ -29,16 +48,16 @@ export default class extends React.Component {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fas fa-user"></i></span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="username" />
+                                    <input type="text" onChange={(e)=>{this.setState({username: e.target.value})}} className="form-control" placeholder="username" name="username" />
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" className="form-control" placeholder="password" />
+                                    <input type="password" onChange={(e)=>{this.setState({password: e.target.value})}} className="form-control" placeholder="password" name="password" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="submit" value="Login" className="btn float-right login_btn" />
+                                    <button className="btn float-right login_btn" onClick={this.handleLogin} >Login</button>
                                 </div>
                             </form>
                         </div>
