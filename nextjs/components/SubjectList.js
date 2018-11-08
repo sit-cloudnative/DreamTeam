@@ -2,29 +2,38 @@ import React from 'react'
 import 'isomorphic-fetch'
 import axios from '../util/axios'
 import CardSubject from '../components/CardSubject'
+import styled from 'styled-components'
+import { get } from 'http';
 
+const CurriculumCard = styled.a`
+background-color:gray;
+margin:44px;
+min-height:70px;
+padding:11px;
+size:36px;
+`
 export default class SubjectList extends React.Component {
 
     constructor() {
         super()
         this.state = {
             curriculum: [],
-            subjectList: []
+            subjectList: [{
+                subjectId:0,
+                subjectName:''
+            }]
         }
         this.getSubjectList = this.getSubjectList.bind(this)
     }
 
     async componentDidMount() {
-        const response = await axios.get('/subject-service/curriculums/')
-        const curriculum = await response.json()
-        this.setState({ curriculum: curriculum })
+        const {data} = await axios.get('/subject-service/curriculums/')
+        this.setState({ curriculum: data })
     }
 
-    async getSubjectList(id) {
-        let curriculumId = id.target.value
-        const response = await fetch('http://localhost:80/subjectlist/curriculum/' + curriculumId)
-        const subjectList = await response.json()
-        this.setState({ subjectList: subjectList })
+    async getSubjectList(targetCurriculumId) {
+        const {data} = await axios.get('subject-service/subjectlist/curriculum/'+ targetCurriculumId)
+        this.setState({ subjectList: data })
     }
 
     render() {
@@ -37,17 +46,22 @@ export default class SubjectList extends React.Component {
         })
 
         return (
-            <div>
-                <div>
+            <div className='container'>
+                <div className='row'>
+                <div className='col-6' style={{overflowY:'scroll',maxHeight:'550px'}}>
                     {this.state.curriculum.map(curriculum =>
-                            <button onClick={this.getSubjectList} value={curriculum.curriculumId}>
+                            <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId)}} value={curriculum.curriculumId} className='card' key={curriculum.curriculumId}>
                                 {curriculum.curriculumCode}
-                            </button>
+                            </CurriculumCard>
                     )}
                 </div>
-
-                <div className="row">
-                    {cardSubject}
+                <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
+                    {this.state.subjectList.map(subject => (
+                        <CurriculumCard key={subject.subjectId} className='row'>
+                            {subject.subjectName}
+                        </CurriculumCard>
+                    ))}
+                </div>
                 </div>
             </div>
         )
