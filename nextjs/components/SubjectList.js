@@ -1,5 +1,6 @@
 import React from 'react'
 import 'isomorphic-fetch'
+import axios from '../util/axios'
 import CardSubject from '../components/CardSubject'
 
 export default class SubjectList extends React.Component {
@@ -14,7 +15,7 @@ export default class SubjectList extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('http://localhost:80/curriculum/')
+        const response = await axios.get('/subject-service/curriculums/')
         const curriculum = await response.json()
         this.setState({ curriculum: curriculum })
     }
