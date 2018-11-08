@@ -2,7 +2,7 @@ import React from 'react'
 import axios from '../../util/axios'
 import Video from '../../components/Video'
 import NavBar from '../../components/NavBar'
-import VideoTitle from '../../components/VideoTitle'
+import VideoTitle from '../../components/videotitle'
 import { withRouter } from 'next/router'
 
 export default class index extends React.Component{
@@ -10,10 +10,8 @@ export default class index extends React.Component{
     super()
     this.state = {
       video:{
-        player:'',
-        teacher:{
-          teacher_name:'-'
-        }
+        videoPath:'',
+        lectuler:''
       }
     }
   }
@@ -21,9 +19,9 @@ export default class index extends React.Component{
   async componentDidMount() {
     const {router} = this.props
     const videoId = this.props.url.query.video_id
-    let {data}  =await axios.get(`/video/${videoId}`)
+    let {data}  =await axios.get(`video-service/video/${videoId}`)
     this.setState({video:data})
-    console.log(this.state.video.player)
+    console.log(this.state.video.videoPath)
     console.log('router : ',router)
 
   }
@@ -33,8 +31,8 @@ export default class index extends React.Component{
       <div>
         <NavBar />
         <VideoTitle
-        videotitle={this.state.video.video_name}
-        teacher={this.state.video.teacher.teacher_name}
+        videotitle={this.state.video.videoName}
+        teacher={this.state.video.lectuler}
          />
         <div className='justify-content-md-center' style={{width:'100%',display:'flex'}}>
           <Video style={{justifyContent:'center'}} video={this.state.video} playing controls />

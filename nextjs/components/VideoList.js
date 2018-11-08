@@ -13,7 +13,7 @@ class VideoList extends React.Component{
     }
 
     async getList(subjectId){
-        let {data} =await axios.get('videoList/'+subjectId)
+        let {data} =await axios.get('video-service/videos/'+subjectId)
         
         this.setState({
             videoList: {data}.data,
