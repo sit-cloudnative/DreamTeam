@@ -1,7 +1,0 @@
-applications:
-- name: subject-service
-  host: subject-service
-  memory: 256MB
-  path: target/SubjectListService-0.0.1-SNAPSHOT.jar
-  env:
-   EUREKA_URL: http://dreamteam-discovery.mybluemix.net/eureka
