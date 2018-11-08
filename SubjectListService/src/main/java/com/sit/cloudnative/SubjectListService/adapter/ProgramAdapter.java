@@ -1,6 +1,6 @@
 package com.sit.cloudnative.SubjectListService.adapter;
 
-import com.sit.cloudnative.SubjectListService.curriculum.Curriculum;
+import com.sit.cloudnative.SubjectListService.Curriculum.Curriculum;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,4 +1,4 @@
-package com.sit.cloudnative.SubjectListService.curriculum;
+package com.sit.cloudnative.SubjectListService.Curriculum;
 
 import java.util.List;
 
