@@ -11,7 +11,7 @@ export default class Material extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('http://localhost:8888/material/int101')
+        const response = await fetch('http://localhost:80/material/')
         const material = await response.json()
         this.setState({ material: material })
     }

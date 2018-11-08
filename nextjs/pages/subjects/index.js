@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar from '../../components/NavBar'
-import Subjects from '../../components/Subjects';
+import SubjectList from '../../components/SubjectList';
 
 export default class index extends React.Component {
    
@@ -12,7 +12,7 @@ export default class index extends React.Component {
         return(
             <div>
                 <NavBar />
-                <Subjects />
+                <SubjectList />
             </div>
         )
     }

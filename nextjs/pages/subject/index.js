@@ -51,6 +51,7 @@ export default class index extends React.Component {
                 <VideoListBySubject subject_id={this.state.subjectId} />
                 <Material subject_id={this.state.subjectId} />
             </div>
+
         )
     }
 }

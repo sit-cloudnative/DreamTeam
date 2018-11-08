@@ -1,39 +1,26 @@
 package com.sit.cloudnative.VideoListService.VideoList;
 
-import java.io.Serializable;
 import java.util.Map;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-public class Videos implements Serializable {
+public class Videos {
 
-    @Id
     private int videoId;
 
-    @NotBlank
-    @Column(name="videoName")
     private String videoName;
 
-    @NotBlank
-    @Column(name="lecturer")
     private String lecturer;
 
-    @NotBlank
-    @Column(name="videoThumbnail")
     private String videoThumbnail;
 
-    public Videos(){}
+    public Videos() {
+    }
 
-    @JsonCreator 
-    public Videos(@JsonProperty("video_id") int videoId, 
-                  @JsonProperty("video_name")  String videoName, 
-                  @JsonProperty("teacher")  Map<String, String> lecturer, 
-                  @JsonProperty("video_thumbnail")  String videoThumbnail){
+    @JsonCreator
+    public Videos(@JsonProperty("video_id") int videoId, @JsonProperty("video_name") String videoName,
+            @JsonProperty("teacher") Map<String, String> lecturer,
+            @JsonProperty("video_thumbnail") String videoThumbnail) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.lecturer = lecturer.get("teacher_name");
@@ -41,36 +28,42 @@ public class Videos implements Serializable {
     }
 
     @JsonProperty("video_id")
-    public void setVideoId(int videoId){
+    public void setVideoId(int videoId) {
         this.videoId = videoId;
     }
+
     @JsonProperty("video_name")
-    public void setVideoName(String videoName){
+    public void setVideoName(String videoName) {
         this.videoName = videoName;
     }
+
     @JsonProperty("teacher")
-    public void setLecturer(Map<String, String> lecturer){
+    public void setLecturer(Map<String, String> lecturer) {
         this.lecturer = lecturer.get("teacher_name");
     }
+
     @JsonProperty("video_thumbnail")
-    public void setVideoThumbnail(String videoThumbnail){
+    public void setVideoThumbnail(String videoThumbnail) {
         this.videoThumbnail = videoThumbnail;
     }
-    
+
     @JsonProperty("videoId")
-    public int getVideoId(){
+    public int getVideoId() {
         return videoId;
     }
+
     @JsonProperty("videoName")
-    public String getVideoName(){
+    public String getVideoName() {
         return videoName;
     }
+
     @JsonProperty("lecturer")
-    public String getLecturer(){
+    public String getLecturer() {
         return lecturer;
     }
+
     @JsonProperty("videoThumbnail")
-    public String getVideoThumbnail(){
+    public String getVideoThumbnail() {
         return videoThumbnail;
     }
 }
