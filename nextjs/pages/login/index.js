@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from '../../util/axios'
 import Head from 'next/head';
+import Router from 'next/router'
 
 export default class extends React.Component {
     constructor() {
@@ -9,7 +10,8 @@ export default class extends React.Component {
             user: {
                 username: '',
                 password: ''
-            }
+            },
+            message:''
         }
         this.handleLogin = this.handleLogin.bind(this)
     }
@@ -25,8 +27,16 @@ export default class extends React.Component {
             },
             url: 'user-service/login'
         })
+        localStorage.setItem('profileId',data.username)
+        let localdata = localStorage.getItem('profileId')
+        if(data.username == undefined){
+            Router.push('/login')
+            this.setState({message:'wrong username or id'})
+            console.log('goto /login')
+        }else{
+            Router.push('/index')            
+        }
 
-        console.log(data)
     }
     render() {
         return (
@@ -43,6 +53,7 @@ export default class extends React.Component {
                             <h3>Sign In</h3>
                         </div>
                         <div className="card-body">
+                        <div style={{color:'red'}}>{this.state.message}</div>
                             <form>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
