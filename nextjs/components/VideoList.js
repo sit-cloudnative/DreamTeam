@@ -28,23 +28,23 @@ class VideoList extends React.Component{
     }
     
     render(){
-        const cards = this.state.videoList.map(video => {
-            return <Card 
-                        image={video.videoThumbnail} 
-                        videoId = {video.videoId} 
-                        key ={video.videoId} 
-                        lecturer={video.lecturer} />
-        })
         
         return (
             <div>
                 <div className="row">
-                    <div className="col-1"></div>
                     <h3 className="">{this.state.subjectName}</h3>
                 </div>
                 <hr />
-                <div className="row">
-                    {cards}
+                <div className="container">
+                   <div className='row'>
+                    { this.state.videoList.map(video => (
+                            <Card 
+                            image={video.videoThumbnail} 
+                            videoId = {video.videoId} 
+                            key ={video.videoId} 
+                            lecturer={video.lecturer} />
+                        ))}
+                   </div>
                 </div>
             </div>
         )

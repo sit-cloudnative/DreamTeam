@@ -44,8 +44,7 @@ export default class SubjectList extends React.Component {
         })
     }
 
-    render() {
-        
+    render() {        
         return (
             <div className='container'>
                 <div className="row" style={{marginTop: '10px', marginBottom: '10px'}}>
@@ -64,8 +63,10 @@ export default class SubjectList extends React.Component {
                                         <div className="col-2">
                                             {(curriculum.curriculumCode == this.state.curriculumCode)?<i className="fa fa-chevron-right fa-2x" aria-hidden="true"></i>:<i className="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>} 
                                         </div>
+
                                         <div className="col-9" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} >
                                             <p style={{marginTop: '-1px', marginBottom: '-2px'}}>
+
                                                 {curriculum.curriculumCode}
                                             </p>
                                             <p style={{marginBottom: '-1px'}}>
