@@ -20,8 +20,8 @@ export default class Material extends React.Component {
         return (
             <div>
                 <h1>Material</h1>
-                <table class="table table-hover">
-                    <thead class="thead-dark">
+                <table className="table table-hover">
+                    <thead className="thead-dark">
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Name</th>

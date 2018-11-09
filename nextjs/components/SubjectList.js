@@ -2,7 +2,17 @@ import React from 'react'
 import 'isomorphic-fetch'
 import axios from '../util/axios'
 import CardSubject from '../components/CardSubject'
+import styled from 'styled-components'
+import Router from 'next/router'
+import { get } from 'http';
 
+const CurriculumCard = styled.a`
+background-color:gray;
+margin:44px;
+min-height:70px;
+padding:11px;
+size:36px;
+`
 export default class SubjectList extends React.Component {
 
     constructor() {
@@ -21,10 +31,16 @@ export default class SubjectList extends React.Component {
         })
     }
 
-    async getSubjectList(id) {
-        let curriculumId = id.target.value
-        let {data} = await axios.get('subject-service/subjectlist/curriculum/' + curriculumId)
-        this.setState({ subjectList: {data}.data })
+    async getSubjectList(targetCurriculumId) {
+        const {data} = await axios.get('subject-service/subjectlist/curriculum/'+ targetCurriculumId)
+        this.setState({ subjectList: data })
+    }
+
+    redirectToVideoListPage(targetSubjectId) {
+        Router.push({
+            pathname:'/videos',
+            query:{subject_id:targetSubjectId}
+        })
     }
 
     render() {
@@ -37,17 +53,22 @@ export default class SubjectList extends React.Component {
         })
 
         return (
-            <div>
-                <div>
+            <div className='container'>
+                <div className='row'>
+                <div className='col-6' style={{overflowY:'scroll',maxHeight:'550px'}}>
                     {this.state.curriculum.map(curriculum =>
-                            <button onClick={this.getSubjectList} value={curriculum.curriculumId}>
+                            <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId)}} value={curriculum.curriculumId} className='card' key={curriculum.curriculumId}>
                                 {curriculum.curriculumCode}
-                            </button>
+                            </CurriculumCard>
                     )}
                 </div>
-
-                <div className="row">
-                    {cardSubject}
+                <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
+                    {this.state.subjectList.map(subject => (
+                        <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='row'>
+                            {subject.subjectName}
+                        </CurriculumCard>
+                    ))}
+                </div>
                 </div>
             </div>
         )

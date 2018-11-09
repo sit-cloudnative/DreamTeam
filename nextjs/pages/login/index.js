@@ -1,13 +1,42 @@
 import React from 'react'
 import axios from '../../util/axios'
 import Head from 'next/head';
+import Router from 'next/router'
 
 export default class extends React.Component {
     constructor() {
         super()
         this.state = {
-
+            user: {
+                username: '',
+                password: ''
+            },
+            message:''
         }
+        this.handleLogin = this.handleLogin.bind(this)
+    }
+    async handleLogin(e){
+        e.preventDefault()
+        console.log(this.state.username)
+        console.log(this.state.password)
+        const {data} =await axios({
+            method: 'post',
+            data: {
+                username: this.state.username,
+                password: this.state.password
+            },
+            url: 'user-service/login'
+        })
+        localStorage.setItem('profileId',data.username)
+        let localdata = localStorage.getItem('profileId')
+        if(data.username == undefined){
+            Router.push('/login')
+            this.setState({message:'wrong username or id'})
+            console.log('goto /login')
+        }else{
+            Router.push('/index')            
+        }
+
     }
     render() {
         return (
@@ -24,21 +53,22 @@ export default class extends React.Component {
                             <h3>Sign In</h3>
                         </div>
                         <div className="card-body">
+                        <div style={{color:'red'}}>{this.state.message}</div>
                             <form>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fas fa-user"></i></span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="username" />
+                                    <input type="text" onChange={(e)=>{this.setState({username: e.target.value})}} className="form-control" placeholder="username" name="username" />
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fas fa-key"></i></span>
                                     </div>
-                                    <input type="password" className="form-control" placeholder="password" />
+                                    <input type="password" onChange={(e)=>{this.setState({password: e.target.value})}} className="form-control" placeholder="password" name="password" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="submit" value="Login" className="btn float-right login_btn" />
+                                    <button className="btn float-right login_btn" onClick={this.handleLogin} >Login</button>
                                 </div>
                             </form>
                         </div>
