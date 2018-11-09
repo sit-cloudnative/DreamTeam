@@ -33,7 +33,7 @@ run these below commands.
 ```
 cloud: spring-cloud-dependencies
 ```
-### repository
+### Repository
 
 ```
 Spring Milestones
