@@ -1,21 +1,21 @@
 import React from 'react'
 
-class Card extends React.Component{
-    constructor(props){
+class Card extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
 
         }
     }
 
-    render(){
+    render() {
         return (
-                <div className="col-md-4">
-                    <div className="card-deck">
+                <div class="col-md-4" style={{padding:'0px',margin:'0px'}}>
+                    <div className="card-deck" style={{ marginBottom: '30px', padding:'20px'}}>
                         <div className="card">
                             <a href={`http://localhost:3000/video?video_id=${this.props.videoId}`} >
                                 <img className="card-img-top" src={this.props.image} alt="Card image cap"
-                                    width="500" height="350" />
+                                    width="400" height="350" />
                                 <div className="card-body">
                                     <h5 className="card-title">{this.props.lecturer}</h5>
                                     <div className="card-footer">

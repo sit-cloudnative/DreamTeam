@@ -3,7 +3,7 @@
 /*@import url('https://fonts.googleapis.com/css?family=Numans'); */
 
 html,body{
-background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+background-image: url('');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -15,45 +15,47 @@ font-family: Impact;
 height: 70%;
 align-content: center;
 }
-#container{
-    box-align: right;
-    }
 
 
 
 .card{
 height: 370px;
-margin-top: auto;
-margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 }
 
 .card2{
- height: 40px;
+ height: 30px;
 margin-top: auto;
 margin-bottom: auto;
 width: 100px;
+<<<<<<< HEAD
 background-color: rgba(59, 49, 49, 0.5) !important;
+=======
+background-color: white;
+>>>>>>> fe9a2880af4f84fb85622fb6f7a79e3a8b7f955c
     }
 .card3{
-display: flex;
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
         }
-
 .font1{
 font-family: Impact;
 font-size: 72px;
-color: aliceblue;
+color:tomato;
     
 
     }
 .font2{
 font-family: Impact;
 font-size: 20px;
-color: aliceblue;
+color: tomato;
         
     
-        }
+}
 
 .social_icon span{
 font-size: 60px;

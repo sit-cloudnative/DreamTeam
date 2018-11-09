@@ -2,6 +2,11 @@
 import SearchBar from './SearchBar'
 import React from 'react'
 import axios from '../util/axios'
+import Router from 'next/router'
+import Head from 'next/head';
+import Line from '../components/Line'
+import ButtonS from '../components/ButtonS'
+
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -26,9 +31,7 @@ export default class NavBar extends React.Component {
 
   render() {
     return (
-
       <div className="">
-
         <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
           <a className="navbar-brand" href="#">Dream-Learning <i className="fa fa-cloud" style={{ fontSize: 35, color: 'aquamarine' }}></i></a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -49,11 +52,7 @@ export default class NavBar extends React.Component {
               {/* <div>{this.state.profile.studentId} {this.state.profile.firstname}</div> */}
           </div>
         </nav>
-
       </div>
-
-
-
     )
   }
 }
