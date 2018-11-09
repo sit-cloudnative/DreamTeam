@@ -1,6 +1,6 @@
 ## E-Learning
 
-E-Learning for SIT Students
+E-Learning for School of Information Technology (SIT), KMUTT Students
 
 ### Getting Started
 run these below commands.
