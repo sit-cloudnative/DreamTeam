@@ -7,6 +7,7 @@ import Head from 'next/head';
 import Line from '../components/Line'
 import ButtonV from '../components/ButtonV'
 import ButtonS from '../components/ButtonS'
+import NavBar from '../components/NavBar';
 
 export default class index extends React.Component {
   constructor() {
@@ -38,18 +39,10 @@ export default class index extends React.Component {
   render() {
     return (
 
-      <div className="container">
-        <Head>
-          <link rel="stylesheet" href="/static/bootstrap.min.css" />
-          <link href="/static/style.css" rel="stylesheet" />
-
-        </Head>
-        <ProfileCard profile={this.state.profile} />
+      <div className="">
+        <NavBar />
         <FavoriteSubjectCard favoriteSubjects={this.state.profile.favoriteSubject} />
-        <Line color="white" />
-        <ButtonV />
-        <ButtonS />
-        <Line color="white" />
+        <ProfileCard profile={this.state.profile} />
         
       </div>
 
