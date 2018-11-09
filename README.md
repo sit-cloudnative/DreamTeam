@@ -2,7 +2,7 @@
 ## E-Learning
 
 E-Learning for School of Information Technology (SIT), KMUTT Students
-- Follow our feature in Wiki: https://github.com/sit-cloudnative/DreamTeam/wiki
+- Follow our designs and features in Wiki: https://github.com/sit-cloudnative/DreamTeam/wiki
 ### Getting Started
 run these below commands.
 ```
