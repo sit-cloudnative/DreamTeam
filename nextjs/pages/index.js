@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from '../util/axios'
+import Router from 'next/router'
 
 export default class index extends React.Component{
   constructor(){
@@ -16,7 +17,7 @@ export default class index extends React.Component{
   render(){
     return (
       <div className ="container">
-        indexpage
+        index
       </div>
     )
   }
