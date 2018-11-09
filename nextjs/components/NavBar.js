@@ -53,7 +53,7 @@ export default class NavBar extends React.Component {
 
 
             </ul>
-            <SearchBar handleOnSearch={this.props.handleOnSearch} />
+            <SearchBar />
           </div>
         </nav>
 

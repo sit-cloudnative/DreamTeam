@@ -17,7 +17,7 @@ export default class extends React.Component {
         return (
             <div>
                 <NavBar />
-                    <VideoList  subjectId={subjectId} /> 
+                <VideoList  subjectId={subjectId} /> 
                 <Footer />
             </div>
         )
