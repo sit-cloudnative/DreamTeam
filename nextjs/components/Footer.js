@@ -1,23 +1,27 @@
 const Footer = (props) => {
     return (
-        <footer className="page-footer font-small blue pt-4">
-
-            <div className="container3">
+        <footer className="page-footer font-small black pt-4">
+            <div className="container">
                 <div className="row">
-                    <div className="col-md-5"></div>
-                    <div className="col-md-5" >
+                    <div className="col-md-2"></div>
+                    <div className="col-md-8" >
+                        <div className="card-footer">
+                            <div className="d-flex justify-content-center links fa-md">
+                                <a href="https://github.com/sit-cloudnative/DreamTeam" target="_blank">
+                                    <i class="fa fa-github  white-text"> Our GitHub</i>
+                                </a>
+                                <div class="mr-3"></div>
+                                &#9400; DreamTeam & INT491 CloudNative
                         </div>
+                        </div>
+                    </div>
                     <div className="col-md-2">
-                    <a href="#home" className="Footer">
-
-                            <i className="fa fa-caret-square-o-up fa-lg white-text mr-md-5 mr-3 fa-1x" aria-hidden="true">  Back to Top</i>
-
-                        </a></div>
+                        <a href="#home" id="Footer" >
+                            <i className="fa fa-caret-square-o-up fa-lg white-text"  > Back to the top</i>
+                        </a>
+                    </div>
                 </div>
-
-
             </div>
-
         </footer>
     )
 }
