@@ -2,6 +2,7 @@ import React from 'react'
 import ProfileCard from '../components/ProfileCard'
 import FavoriteSubjectCard from '../components/FavoriteSubjectCard'
 import axios from '../util/axios'
+import Router from 'next/router'
 
 export default class index extends React.Component{
   constructor(){
