@@ -3,6 +3,7 @@ import 'isomorphic-fetch'
 import axios from '../util/axios'
 import CardSubject from '../components/CardSubject'
 import styled from 'styled-components'
+import Router from 'next/router'
 import { get } from 'http';
 
 const CurriculumCard = styled.a`
@@ -18,10 +19,7 @@ export default class SubjectList extends React.Component {
         super()
         this.state = {
             curriculum: [],
-            subjectList: [{
-                subjectId:0,
-                subjectName:''
-            }]
+            subjectList: []
         }
         this.getSubjectList = this.getSubjectList.bind(this)
     }
@@ -34,6 +32,10 @@ export default class SubjectList extends React.Component {
     async getSubjectList(targetCurriculumId) {
         const {data} = await axios.get('subject-service/subjectlist/curriculum/'+ targetCurriculumId)
         this.setState({ subjectList: data })
+    }
+
+    redirectToVideoListPage(targetSubjectId) {
+
     }
 
     render() {
@@ -57,7 +59,7 @@ export default class SubjectList extends React.Component {
                 </div>
                 <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
                     {this.state.subjectList.map(subject => (
-                        <CurriculumCard key={subject.subjectId} className='row'>
+                        <CurriculumCard key={subject.subjectId} value={subject.subjectId} className='row'>
                             {subject.subjectName}
                         </CurriculumCard>
                     ))}
