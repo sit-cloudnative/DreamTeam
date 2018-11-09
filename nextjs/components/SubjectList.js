@@ -70,7 +70,7 @@ export default class SubjectList extends React.Component {
                                 <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId); this.setState({curriculumCode:curriculum.curriculumCode})}} value={curriculum.curriculumId} className='card' key={curriculum.curriculumId}>
                                     <div className="row">
                                         <div className="col-2">
-                                            {(curriculum.curriculumCode == this.state.curriculumCode)?<i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i>:<i class="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>} 
+                                            {(curriculum.curriculumCode == this.state.curriculumCode)?<i className="fa fa-chevron-right fa-2x" aria-hidden="true"></i>:<i className="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>} 
                                         </div>
                                         <div className="col-9">
                                             <p>
