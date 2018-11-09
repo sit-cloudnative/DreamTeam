@@ -36,13 +36,11 @@ export default class index extends React.Component {
 
 
   render() {
-    return (
-
-
+    return (      
       <div className="">
         <NavBar />
         <FavoriteSubjectCard favoriteSubjects={this.state.profile.favoriteSubject} />
-        <ProfileCard profile={this.state.profile} />        
+        <ProfileCard profile={this.state.profile} />
       </div>
 
 

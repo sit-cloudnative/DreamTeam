@@ -5,7 +5,6 @@ const ProfileCard = (props) => {
     return (
 
         <div>
-
             This is profile
             <p className='font2'>{props.profile.firstname + '  ' + props.profile.lastname}</p>
         </div>

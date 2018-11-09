@@ -1,7 +1,6 @@
 import React from 'react'
 import 'isomorphic-fetch'
 import axios from '../util/axios'
-import CardSubject from '../components/CardSubject'
 import styled from 'styled-components'
 import Router from 'next/router'
 import { get } from 'http';
@@ -45,15 +44,7 @@ export default class SubjectList extends React.Component {
         })
     }
 
-    render() {
-
-        const cardSubject = this.state.subjectList.map(subject => {
-            return <CardSubject 
-                    subject_id = {subject.subjectId}
-                    subject_name = {subject.subjectName}
-            />
-        })
-        
+    render() {        
         return (
             <div className='container'>
                 <div className="row" style={{marginTop: '10px', marginBottom: '10px'}}>
@@ -72,8 +63,10 @@ export default class SubjectList extends React.Component {
                                         <div className="col-2">
                                             {(curriculum.curriculumCode == this.state.curriculumCode)?<i className="fa fa-chevron-right fa-2x" aria-hidden="true"></i>:<i className="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>} 
                                         </div>
-                                        <div className="col-9">
-                                            <p>
+
+                                        <div className="col-9" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} >
+                                            <p style={{marginTop: '-1px', marginBottom: '-2px'}}>
+
                                                 {curriculum.curriculumCode}
                                             </p>
                                             <p style={{marginBottom: '-1px'}}>
@@ -87,7 +80,19 @@ export default class SubjectList extends React.Component {
                     <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
                         {this.state.subjectList.map(subject => (
                             <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='card'>
-                                {subject.subjectName}
+                                <div className="row">
+                                        <div className="col-2">
+                                            <i className="fa fa-book fa-2x" aria-hidden="true"></i> 
+                                        </div>
+                                        <div className="col-9" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} >
+                                            <p style={{marginTop: '-1px', marginBottom: '-2px'}}>
+                                                {subject.subjectCode}
+                                            </p>
+                                            <p style={{marginBottom: '-1px'}}>
+                                                {subject.subjectName}
+                                            </p>
+                                        </div>
+                                    </div>
                             </CurriculumCard>
                         ))}
                     </div>
