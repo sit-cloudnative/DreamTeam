@@ -55,14 +55,14 @@ export default class SubjectList extends React.Component {
         return (
             <div className='container'>
                 <div className='row'>
-                <div className='col-6' style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
+                <div className='btn btn-light' style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
                     {this.state.curriculum.map(curriculum =>
-                            <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId)}} value={curriculum.curriculumId} className='card' key={curriculum.curriculumId}>
+                            <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId)}} value={curriculum.curriculumId} className='card2' key={curriculum.curriculumId}>
                                 {curriculum.curriculumCode}
                             </CurriculumCard>
                     )}
                 </div>
-                <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
+                <div className='btn btn-light' style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
                     {this.state.subjectList.map(subject => (
                         <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='row'>
                             {subject.subjectName}

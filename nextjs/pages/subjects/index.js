@@ -3,6 +3,7 @@ import NavBar from '../../components/NavBar'
 import SubjectList from '../../components/SubjectList';
 import axios from '../../util/axios'
 
+
 export default class index extends React.Component {
    
     constructor(props) {
@@ -31,6 +32,7 @@ export default class index extends React.Component {
             <div>
                 <NavBar handleOnSearch={this.handleOnSearch} />
                 <SubjectList />
+                
             </div>
         )
     }
