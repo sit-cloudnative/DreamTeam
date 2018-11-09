@@ -1,4 +1,4 @@
-import SearchBar from '../components/SearhBar'
+import SearchBar from './SearchBar'
 
 const NavBar = (props) => {
     return (
@@ -17,7 +17,7 @@ const NavBar = (props) => {
 
 
                 </ul>
-                <SearchBar />
+                <SearchBar handleOnSearch={props.handleOnSearch} />
             </div>
         </nav>
     )
