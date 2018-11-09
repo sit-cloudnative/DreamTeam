@@ -3,6 +3,8 @@
 
 E-Learning for School of Information Technology (SIT), KMUTT Students
 - Follow our designs and features in Wiki: https://github.com/sit-cloudnative/DreamTeam/wiki
+- Spring Eureka: https://dreamteam-discovery.mybluemix.net/
+- Hystrix Stream for Mornitoring services : https://goo.gl/ZynX3K
 ### Getting Started
 run these below commands.
 ```
