@@ -9,12 +9,16 @@ const redirectToVideoListPage = (targetSubjectId) => {
     })
 }
 
+
 const FavoriteSubjectCard = (props) => {
     return (
         <div>
+            
             {props.favoriteSubjects.map(subject => (
-                <div className='card' onClick={() => {redirectToVideoListPage(subject.subjectId)}} key={subject.subjectId}>{subject.subjectName}</div>
+                <div className='card2' onClick={() => {redirectToVideoListPage(subject.subjectId)}} key={subject.subjectId}>
+                <p className='btn btn-light' >{subject.subjectName}</p></div>
             ))}
+            
         </div>
     )
 }
