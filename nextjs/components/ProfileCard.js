@@ -1,6 +1,5 @@
 import React from 'react'
-import SearchBar from '../components/SearhBar'
-
+import SearchBar from './SearchBar'
 
 const ProfileCard = (props) => {
     return (
@@ -11,7 +10,8 @@ const ProfileCard = (props) => {
 
 
             <p className='font1'>D-Learning</p>
-            <p className='font2'>{props.profile.firstname + '  ' + props.profile.lastname} <SearchBar /></p>
+            <p className='font2'>{props.profile.firstname + '  ' + props.profile.lastname}<SearchBar handleOnSearch={props.handleOnSearch} />
+             </p>
 
         </div>
     )
