@@ -35,7 +35,10 @@ export default class SubjectList extends React.Component {
     }
 
     redirectToVideoListPage(targetSubjectId) {
-
+        Router.push({
+            pathname:'/videos',
+            query:{subject_id:targetSubjectId}
+        })
     }
 
     render() {
@@ -59,7 +62,7 @@ export default class SubjectList extends React.Component {
                 </div>
                 <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
                     {this.state.subjectList.map(subject => (
-                        <CurriculumCard key={subject.subjectId} value={subject.subjectId} className='row'>
+                        <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='row'>
                             {subject.subjectName}
                         </CurriculumCard>
                     ))}
