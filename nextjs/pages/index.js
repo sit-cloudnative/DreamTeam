@@ -6,6 +6,7 @@ import Router from 'next/router'
 import Head from 'next/head';
 import Line from '../components/Line'
 import ButtonS from '../components/ButtonS'
+import NavBar from '../components/NavBar';
 
 export default class index extends React.Component {
   constructor() {
@@ -37,13 +38,11 @@ export default class index extends React.Component {
   render() {
     return (
 
-      <div className="container">
-        <ProfileCard profile={this.state.profile} />
+
+      <div className="">
+        <NavBar />
         <FavoriteSubjectCard favoriteSubjects={this.state.profile.favoriteSubject} />
-        <Line color="white" />
-        <ButtonS />
-        <Line color="white" />
-        
+        <ProfileCard profile={this.state.profile} />        
       </div>
 
 

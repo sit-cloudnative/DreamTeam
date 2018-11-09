@@ -7,11 +7,12 @@ import Router from 'next/router'
 import { get } from 'http';
 
 const CurriculumCard = styled.a`
-background-color:gray;
-margin:44px;
+background-color:white;
 min-height:70px;
 padding:11px;
 size:36px;
+display:flex;
+justify-content:center;
 `
 export default class SubjectList extends React.Component {
 
@@ -19,7 +20,8 @@ export default class SubjectList extends React.Component {
         super()
         this.state = {
             curriculum: [],
-            subjectList: []
+            subjectList: [],
+            curriculumCode: ''
         }
         this.getSubjectList = this.getSubjectList.bind(this)
     }
@@ -51,24 +53,44 @@ export default class SubjectList extends React.Component {
                     subject_name = {subject.subjectName}
             />
         })
-
+        
         return (
             <div className='container'>
+                <div className="row" style={{marginTop: '10px', marginBottom: '10px'}}>
+                    <div className="col-6">
+                        <h2>Curriculum</h2>
+                    </div>
+                    <div className="col-6">
+                        {(this.state.subjectList.length!=0)?<h2>{this.state.curriculumCode}</h2>:''}
+                    </div>
+                </div>
                 <div className='row'>
-                <div className='btn btn-light' style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
-                    {this.state.curriculum.map(curriculum =>
-                            <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId)}} value={curriculum.curriculumId} className='card2' key={curriculum.curriculumId}>
-                                {curriculum.curriculumCode}
+                    <div className='col-6' style={{overflowY:'scroll',maxHeight:'550px'}}>
+                        {this.state.curriculum.map(curriculum =>
+                                <CurriculumCard onClick={() => {this.getSubjectList(curriculum.curriculumId); this.setState({curriculumCode:curriculum.curriculumCode})}} value={curriculum.curriculumId} className='card' key={curriculum.curriculumId}>
+                                    <div className="row">
+                                        <div className="col-2">
+                                            {(curriculum.curriculumCode == this.state.curriculumCode)?<i className="fa fa-chevron-right fa-2x" aria-hidden="true"></i>:<i className="fa fa-graduation-cap fa-2x" aria-hidden="true"></i>} 
+                                        </div>
+                                        <div className="col-9">
+                                            <p>
+                                                {curriculum.curriculumCode}
+                                            </p>
+                                            <p style={{marginBottom: '-1px'}}>
+                                                {curriculum.curriculumName}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </CurriculumCard>
+                        )}
+                    </div>
+                    <div className="col-6" style={{overflowY:'scroll',maxHeight:'550px'}}>
+                        {this.state.subjectList.map(subject => (
+                            <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='card'>
+                                {subject.subjectName}
                             </CurriculumCard>
-                    )}
-                </div>
-                <div className='btn btn-light' style={{overflowY:'scroll',maxHeight:'550px', textAlign:'center'}}>
-                    {this.state.subjectList.map(subject => (
-                        <CurriculumCard key={subject.subjectId} onClick={()=> {this.redirectToVideoListPage(subject.subjectId)}} value={subject.subjectId} className='row'>
-                            {subject.subjectName}
-                        </CurriculumCard>
-                    ))}
-                </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         )
