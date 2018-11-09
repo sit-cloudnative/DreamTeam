@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from '../../util/axios'
 import NavBar from '../../components/NavBar'
+import Footer from '../../components/Footer'
 import Material from '../../components/Material'
 import VideoListBySubject from '../../components/VideoListBySubject'
 
@@ -51,6 +52,7 @@ export default class index extends React.Component {
                 </div> */}
                 <VideoListBySubject subject_id={this.state.subjectId} />
                 <Material subject_id={this.state.subjectId} />
+                <Footer />
             </div>
 
         )

@@ -2,6 +2,7 @@ import React from 'react'
 import axios from '../../util/axios'
 import Video from '../../components/Video'
 import NavBar from '../../components/NavBar'
+import Footer from '../../components/Footer'
 import VideoTitle from '../../components/videotitle'
 import Comment from '../../components/Comment'
 import { withRouter } from 'next/router'
@@ -53,6 +54,7 @@ export default class index extends React.Component {
             </div>
           </form>
         </div>
+        <Footer />
       </div>
     )
   }

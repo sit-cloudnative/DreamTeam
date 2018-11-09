@@ -5,6 +5,7 @@ import axios from '../util/axios'
 import NavBar from '../components/NavBar';
 import Row from '../node_modules/reactstrap/lib/Row'
 import Col from '../node_modules/reactstrap/lib/Col'
+import Footer from '../components/Footer'
 
 export default class index extends React.Component {
   constructor() {
@@ -66,6 +67,7 @@ export default class index extends React.Component {
             </Row>
 
           </div>
+          <Footer />
         </div>
       </div>
     )
