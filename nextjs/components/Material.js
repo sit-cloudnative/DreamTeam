@@ -1,5 +1,6 @@
 import React from 'react'
 import 'isomorphic-fetch'
+import axios from 'axios';
 
 export default class Material extends React.Component {
 
@@ -11,9 +12,8 @@ export default class Material extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('http://dreamteam-gateway.mybluemix.net/material-service/material/1')
-        const material = await response.json()
-        this.setState({ material: material })
+        let {data} = await axios.get('http://dreamteam-gateway.mybluemix.net/material-service/material/1')
+        this.setState({ material: {data}.data })
     }
 
     render() {

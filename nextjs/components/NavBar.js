@@ -1,13 +1,7 @@
 
 import SearchBar from './SearchBar'
 import React from 'react'
-import ProfileCard from '../components/ProfileCard'
 import axios from '../util/axios'
-import Router from 'next/router'
-import Head from 'next/head';
-import Line from '../components/Line'
-import ButtonV from '../components/ButtonV'
-import ButtonS from '../components/ButtonS'
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -50,10 +44,9 @@ export default class NavBar extends React.Component {
               <li>
                 <a id="subjects" className="nav-link" href="/subjects">All Curriculum <span className="sr-only">(current)</span></a>
               </li>
-
-
             </ul>
             <SearchBar handleOnSearch={this.props.handleOnSearch} />
+              {/* <div>{this.state.profile.studentId} {this.state.profile.firstname}</div> */}
           </div>
         </nav>
 

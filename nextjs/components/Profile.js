@@ -9,52 +9,54 @@ export default class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            studentId: 59130500060,
-            firstname: '',
-            lastname: '',
-            favoriteSubject: []
+            profile: {
+                studentId: '',
+                firstname: '',
+                lastname: '',
+                favoriteSubject: [
+                    {
+                        subjectId: 0,
+                        subjectName: ''
+                    }
+                ]
+            }
         }
     }
 
     async componentDidMount() {
-        let studentId = this.state.studentId
+        let studentId  = localStorage.getItem('profileId')
         console.log(studentId)
-        let {data} = await axios.get(`profile-service/profile/${studentId}`)
+        let { data } = await axios.get(`profile-service/profile/${studentId}`)
         this.setState({
-            studentId: {data}.data.studentId,
-            firstname: {data}.data.firstname,
-            lastname: {data}.data.lastname,
-            favoriteSubject: {data}.data.favoriteSubject
+            profile: data
         })
-        console.log("firstname: " + this.state.firstname)
+        console.log(data)
     }
 
     render() {
         return (
             <div>
 
-                <div className="d-flex justify-content-center h-100">
-                    <div className="card" style={{ justifyContent: 'center', display: 'flex' }}>
-                        <div className="card-header">
-                            <h3>Profile</h3>
-                        </div>
-                        <div className="card-body">
-                            <p>
-                                <b>Student Id: </b>
-                                {this.state.studentId}
-                            </p>
-                            <p>
-                                <b>Student Name: </b>
-                                {this.state.firstname} {this.state.lastname}
-                            </p>
-                            <p>
-                                <b>Favorite Subject: </b> {this.state.favoriteSubject.map(subject => {
-                                    <li>
-                                        {subject.subjectName}
-                                    </li>
-                                })}
-                            </p>
-                        </div>
+                <div className="card">
+                    <div className="card-header">
+                        <h3>Profile</h3>
+                    </div>
+                    <div className="card-body">
+                        <p>
+                            <b>Student Id: </b>
+                            {this.state.profile.studentId}
+                        </p>
+                        <p>
+                            <b>Student Name: </b>
+                            {this.state.profile.firstname} {this.state.lastname}
+                        </p>
+                        <p>
+                            <b>Favorite Subject: </b> {this.state.profile.favoriteSubject.map(subject => {
+                                <li>
+                                    {subject.subjectName}
+                                </li>
+                            })}
+                        </p>
                     </div>
                 </div>
 

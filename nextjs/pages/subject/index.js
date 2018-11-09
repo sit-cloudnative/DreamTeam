@@ -12,7 +12,7 @@ export default class index extends React.Component {
             subjectId: 0,
             status: 'subscribe'
         }
-        this.favoriteSubject = this.favoriteSubject.bind(this)
+        //this.favoriteSubject = this.favoriteSubject.bind(this)
     }
 
     async componentDidMount() {
@@ -22,7 +22,7 @@ export default class index extends React.Component {
         })
     }
 
-    async favoriteSubject(status) {
+   /* async favoriteSubject(status) {
         let favoriteStatus = status.target.value
         let subjectId = this.state.subjectId
 
@@ -38,16 +38,17 @@ export default class index extends React.Component {
             })
         }
     }
+    */
 
     render() {
         return (
             <div>
                 <NavBar />
-                <div>
+                {/* <div>
                     <button onClick={this.favoriteSubject} value={this.state.status}>
                         {this.state.status}
                     </button>
-                </div>
+                </div> */}
                 <VideoListBySubject subject_id={this.state.subjectId} />
                 <Material subject_id={this.state.subjectId} />
             </div>
