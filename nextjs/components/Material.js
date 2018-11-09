@@ -11,7 +11,7 @@ export default class Material extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('http://localhost:80/material/')
+        const response = await fetch('http://dreamteam-gateway.mybluemix.net/material-service/material/1')
         const material = await response.json()
         this.setState({ material: material })
     }

@@ -13,7 +13,7 @@ class VideoListBySubject extends React.Component{
     }
 
     async getList(subjectId){      
-        let {data} =await axios.get('videoList/'+subjectId)      
+        let {data} =await axios.get('video-service/videos/'+subjectId)      
         this.setState({
             videoList: {data}.data,
             subjectName: ({data}.data[0].videoName.search('G.')>-1)? {data}.data[0].videoName.substring(0, {data}.data[0].videoName.search(' G')): {data}.data[0].videoName 

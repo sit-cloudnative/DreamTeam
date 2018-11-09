@@ -15,24 +15,24 @@ export default class SubjectList extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await axios.get('/subject-service/curriculums/')
-        const curriculum = await response.json()
-        this.setState({ curriculum: curriculum })
+        let {data} = await axios.get('subject-service/curriculums')
+        this.setState({ 
+            curriculum: {data}.data 
+        })
     }
 
     async getSubjectList(id) {
         let curriculumId = id.target.value
-        const response = await fetch('http://localhost:80/subjectlist/curriculum/' + curriculumId)
-        const subjectList = await response.json()
-        this.setState({ subjectList: subjectList })
+        let {data} = await axios.get('subject-service/subjectlist/curriculum/' + curriculumId)
+        this.setState({ subjectList: {data}.data })
     }
 
     render() {
 
         const cardSubject = this.state.subjectList.map(subject => {
             return <CardSubject 
-                    subject_id = {subject.subject_id}
-                    subject_name = {subject.subject_name}
+                    subject_id = {subject.subjectId}
+                    subject_name = {subject.subjectName}
             />
         })
 
