@@ -15,6 +15,7 @@ run these below commands.
 1. Maven 
 2. Spring Boot 2.1.0.RELEASE
 3. Java 1.8
+4. Spring-cloud Greenwich.M1
 ```
 
 ### Dependency
