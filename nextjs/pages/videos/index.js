@@ -8,16 +8,16 @@ export default class extends React.Component {
     constructor() {
         super()
         this.state = {
-            subjectId: '',
-            subjectName: ''
+            subjectId: ''
         }
     }
 
     render() {
+        const subjectId = this.props.url.query.subject_id
         return (
             <div>
                 <NavBar />
-                <VideoList />
+                    <VideoList  subjectId={subjectId} /> 
                 <Footer />
             </div>
         )

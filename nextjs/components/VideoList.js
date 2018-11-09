@@ -6,25 +6,25 @@ class VideoList extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            targetSubject:'',
             videoList: [],
             subjectName: '',
-            subjectId: 2
         }
     }
 
-    async getList(subjectId){
-        let {data} =await axios.get('video-service/videos/'+subjectId)
+    // async getList(subjectId){
+    //     let {data} = await axios.get('video-service/videos/'+this.props.subjectId)
         
-        this.setState({
-            videoList: {data}.data,
-            subjectName: ({data}.data[0].videoName.search('G.')>-1)? {data}.data[0].videoName.substring(0, {data}.data[0].videoName.search(' G')): {data}.data[0].videoName 
-        })
+    //     this.setState({
+    //         videoList: {data}.data,
+    //         subjectName: ({data}.data[0].videoName.search('G.')>-1)? {data}.data[0].videoName.substring(0, {data}.data[0].videoName.search(' G')): {data}.data[0].videoName 
+    //     })
 
-        console.log(this.state.videoList[0].videoName)
-    }
+    // }
 
-    componentDidMount(){
-        this.getList(this.state.subjectId)
+    async componentDidMount(){
+        let {data} = await axios.get('video-service/videos/'+this.props.subjectId)
+        this.setState({videoList:data})
     }
     
     render(){
@@ -41,9 +41,6 @@ class VideoList extends React.Component{
                 <div className="row">
                     <div className="col-1"></div>
                     <h3 className="">{this.state.subjectName}</h3>
-                    <button onClick={() => {this.getList(2)}} class="btn btn-dark">subject it fun</button>
-                    <button onClick={() => {this.getList(5)}} class="btn btn-dark">subject com pro 1</button>
-                    <button onClick={() => {this.getList(10)}} class="btn btn-dark">subject discrete</button>
                 </div>
                 <hr />
                 <div className="row">
