@@ -1,0 +1,5 @@
+applications:
+- name: dreamteam-frontend
+  memory: 512MB
+  buildpack: https://github.com/cloudfoundry/nginx-buildpack
+  path: .

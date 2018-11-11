@@ -8,11 +8,17 @@
     "react-dom": "^16.6.1",
     "react-player": "^1.6.6",
     "reactstrap": "^6.5.0",
-    "styled-components": "^4.0.2"
+    "serve": "^10.0.2",
+    "styled-components": "^3.4.10"
   },
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  }
+    "superultimatedeploy": "next build && cp manifest.yml out && cd out && ibmcloud cf push",
+    "start": "next start",
+    "export": "next export"
+  },
+  "engines": {
+    "node": "4.2.4",
+    "npm": "3.10.10"
+ }
 }

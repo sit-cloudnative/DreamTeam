@@ -1,0 +1,6 @@
+applications:
+- name: dreamteam-frontend
+  #random-route: true
+  memory: 512MB
+  path: .
+  buildpack: staticfile_buildpack
