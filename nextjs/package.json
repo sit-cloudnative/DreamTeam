@@ -15,6 +15,7 @@
     "dev": "next",
     "superultimatedeploy": "next build && cp manifest.yml out && cd out && ibmcloud cf push",
     "start": "next start",
+    "build": "next build",
     "export": "next export"
   },
   "engines": {
