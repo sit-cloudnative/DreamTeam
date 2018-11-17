@@ -1,7 +1,0 @@
-applications:
-- name: hystrix-dashboard
-  host: hystrix
-  memory: 256MB
-  path: target/HystrixDashboard-0.0.1-SNAPSHOT.jar
-  env:
-   EUREKA_URL: http://dreamteam-discovery.mybluemix.net/eureka
