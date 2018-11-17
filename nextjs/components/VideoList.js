@@ -32,7 +32,7 @@ class VideoList extends React.Component{
         return (
             <div>
                 <div className="row">
-                    <h3 className="">{this.state.subjectName}</h3>
+                    <h3>{this.state.subjectName}</h3>
                 </div>
                 <hr />
                 <div className="container">

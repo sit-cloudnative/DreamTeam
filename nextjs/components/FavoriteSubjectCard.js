@@ -1,6 +1,5 @@
 import React from 'react'
 import Router from 'next/router'
-import styled from 'styled-components'
 
 const redirectToVideoListPage = (targetSubjectId) => {
     Router.push({
@@ -9,24 +8,24 @@ const redirectToVideoListPage = (targetSubjectId) => {
     })
 }
 
-
 const FavoriteSubjectCard = (props) => {
     return (
-        <div className="card text-center" style={{ boxShadow: '0 3px 5px', margin: '50px', fontFamily: 'Georgia'}}>
-            <div className="card-title">
-                <i class="fa fa-heart" style={{fontSize: '80px', color: ' #e60000'}}></i>
-                <h2><b>My Favorite Subject</b></h2>
-            </div>            
-
+        <div className="row card-deck m-5">
             {props.favoriteSubjects.map(subject => (
-                <div className="card-body">
                     <div onClick={() => { redirectToVideoListPage(subject.subjectId) }} key={subject.subjectId}>
-                        <div class="list-group">
-                            <p className='btn btn-dark' style={{ fontSize: '17px' }}>{subject.subjectName}</p>
+                        <div className="card btn bg-dark card-block shadow-sm p-3 mb-5" style={{width: '400px'}}>
+                            <div className="card-header">
+                                <img class="img-thumbnail" src="https://image.ibb.co/jJM14f/wordpress-e-learning-website.jpg" style={{ width: '300px', height: '200px' }} />
+                            </div>
+                            <div className="card-body">
+                                <div class="list-group">
+                                    <p className='text-truncate' style={{ fontSize: '20px', textOverflow: 'ellipsis', color: '#ffffff' }}>{subject.subjectName}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+            ))
+            }
         </div>
     )
 }

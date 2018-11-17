@@ -4,13 +4,15 @@ const ProfileCard = (props) => {
     return (
 
         <div>
-            <div class="card text-center" style={{boxShadow:'0 3px 5px', margin: '50px', fontFamily: 'Georgia'}}>               
-                <i class="fa fa-user" style={{fontSize: '300px'}}></i>
+            <div class="card text-center bg-dark" style={{ boxShadow: '0 3px 5px', margin: '50px', fontFamily: 'Lucida Console' }}>
+                <div class="card-header center">
+                    <img class="img-thumbnail" src="https://image.ibb.co/dGX6kL/feature-12-1.jpg" style={{ width: '100%', height: '200px' }} />
+                </div>
                 <div class="card-body">
-                    <h3 class="card-title" style={{backgroundColor: 'aquamarine'}}><b>Student Id</b>  </h3>
-                    <p class="card-text" style={{fontSize: '20px'}}>{props.profile.studentId}</p>
-                    <h3 class="card-title" style={{backgroundColor: 'aquamarine'}}><b>Student Name</b> </h3>
-                    <p class="card-text" style={{fontSize: '20px'}}>{props.profile.firstname} {props.profile.lastname}</p>
+                    <h3 class="card-title" style={{ backgroundColor: '#f0f0f0' }}><b>Student Id</b>  </h3>
+                    <p class="card-text" style={{ fontSize: '20px', color: '#ffffff' }}>{props.profile.studentId}</p>
+                    <h3 class="card-title" style={{ backgroundColor: '#f0f0f0' }}><b>Student Name</b> </h3>
+                    <p class="card-text" style={{ fontSize: '20px', color: '#ffffff' }}>{props.profile.firstname} {props.profile.lastname}</p>
                 </div>
             </div>
         </div>

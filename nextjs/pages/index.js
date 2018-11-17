@@ -2,10 +2,12 @@ import React from 'react'
 import ProfileCard from '../components/ProfileCard'
 import FavoriteSubjectCard from '../components/FavoriteSubjectCard'
 import axios from '../util/axios'
-import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar'
 import Row from '../node_modules/reactstrap/lib/Row'
 import Col from '../node_modules/reactstrap/lib/Col'
 import Footer from '../components/Footer'
+import Carousel from '../components/Carousel'
+import AOS from 'aos'
 
 export default class index extends React.Component {
   constructor() {
@@ -30,46 +32,43 @@ export default class index extends React.Component {
     let { data } = await axios.get('profile-service/profile/' + user)
     this.setState({ profile: data })
     console.log(data)
+    AOS.init()
+  }
+
+  componentWillReceiveProps (){ 
+    AOS.refresh()
   }
 
   render() {
-
     return (
       <div>
-
         <div style={{ backgroundColor: '#f5f5f0' }}>
           <NavBar studentId={this.state.profile.studentId} />
-          <h1 className="text-center" style={{ fontFamily: 'Georgia', margin: '20px' }}><b> Welcome To Dream-Learning </b> </h1>
-          <div className="container-fluid">
 
             <Row>
-              <Col md={3}></Col>
-
-              <Col md={6}>
+              <Col md={4}>
                 <div className="profile-detail">
                   <ProfileCard profile={this.state.profile} />
                 </div>
               </Col>
 
-              <Col md={3}></Col>
-            </Row>
-
-            <Row>
-              <Col md={4}></Col>
-
-              <Col md={4}>
-                <div className="favorite-subject">
-                  <FavoriteSubjectCard favoriteSubjects={this.state.profile.favoriteSubject} />
+              <Col md={8}>
+                <div>
+                  <Carousel />
                 </div>
               </Col>
-
-              <Col md={4}></Col>
             </Row>
 
+              <hr />
+
+            <Row>
+              <div data-aos="zoom-in">
+                <FavoriteSubjectCard favoriteSubjects={this.state.profile.favoriteSubject} />
+              </div>
+            </Row>
           </div>
           <Footer />
         </div>
-      </div>
     )
   }
 }
