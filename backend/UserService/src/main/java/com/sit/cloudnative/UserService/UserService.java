@@ -9,15 +9,15 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    
+
     public User createUser(User user) {
         String password = user.getPassword();
         String hashPassword = password.hashCode() + "";
         user.setPassword(hashPassword);
         return userRepository.save(user);
     }
-    
-    public List<User> findAll(){
+
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -26,9 +26,14 @@ public class UserService {
         User user = userRepository.findByUsernameAndPassword(username, password);
         return user;
     }
-    
-    public User findById(long id){
+
+    public User findById(long id) {
         return userRepository.findById(id).get();
+    }
+
+    public long deleteById(long id) {
+        userRepository.deleteById(id);
+        return id;
     }
 
 }

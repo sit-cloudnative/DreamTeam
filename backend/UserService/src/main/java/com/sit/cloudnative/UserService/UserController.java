@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,23 +28,22 @@ public class UserController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<User> authenticate(@RequestBody HashMap<String,String> inputUser) {
-        if(!inputUser.containsKey("username") || !inputUser.containsKey("password")){
+    public ResponseEntity<User> authenticate(@RequestBody HashMap<String, String> inputUser) {
+        if (!inputUser.containsKey("username") || !inputUser.containsKey("password")) {
             throw new BadRequestException("RequestBody not have username or password.");
         }
         User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
-        if(user == null){
+        if (user == null) {
             throw new NotFoundException("Not Found user. incorrect username or password.");
         }
         String token = tokenService.createToken(user);
         user.setToken(token);
-        user.setPassword("");
-        return new ResponseEntity<User>(user , HttpStatus.OK);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @PostMapping("/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        if(user == null){
+        if (user == null) {
             throw new BadRequestException("RequestBody not have user");
         }
         return new ResponseEntity<User>(userService.createUser(user), HttpStatus.OK);
@@ -53,10 +53,14 @@ public class UserController {
     public ResponseEntity<List<User>> getUserList() {
         return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
     }
-    
+
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable long id){
+    public ResponseEntity<User> getUser(@PathVariable long id) {
         return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
     }
-    
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Long> deleteUser(@PathVariable long id) {
+        return new ResponseEntity<Long>(userService.deleteById(id), HttpStatus.OK);
+    }
 }
