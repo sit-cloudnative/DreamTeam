@@ -1,5 +1,7 @@
 package com.sit.cloudnative.UserService;
 
+import com.sit.cloudnative.UserService.exception.BadRequestException;
+import com.sit.cloudnative.UserService.exception.NotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
@@ -26,14 +28,24 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<User> authenticate(@RequestBody HashMap<String,String> inputUser) {
+        if(!inputUser.containsKey("username") || !inputUser.containsKey("password")){
+            throw new BadRequestException("RequestBody not have username or password.");
+        }
         User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
+        if(user == null){
+            throw new NotFoundException("Not Found user. incorrect username or password.");
+        }
         String token = tokenService.createToken(user);
         user.setToken(token);
+        user.setPassword("");
         return new ResponseEntity<User>(user , HttpStatus.OK);
     }
 
     @PostMapping("/user")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        if(user == null){
+            throw new BadRequestException("RequestBody not have user");
+        }
         return new ResponseEntity<User>(userService.createUser(user), HttpStatus.OK);
     }
 

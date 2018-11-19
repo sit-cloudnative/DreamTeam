@@ -1,6 +1,5 @@
 package com.sit.cloudnative.UserService;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 
@@ -14,18 +13,18 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @NotNull
     private String username;
-    
+
     @NotNull
     private String password;
-    
+
     @Transient
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String token;
@@ -119,5 +118,5 @@ public class User implements Serializable{
     public void setYear(int year) {
         this.year = year;
     }
-     
+
 }
