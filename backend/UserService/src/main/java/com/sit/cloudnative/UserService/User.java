@@ -1,7 +1,10 @@
 package com.sit.cloudnative.UserService;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +23,7 @@ public class User implements Serializable {
     private long id;
 
     @NotNull
+    @Column(unique = true)
     private String username;
 
     @NotNull
@@ -63,6 +67,8 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    @JsonIgnore
+    @JsonProperty("identify")
     public String getPassword() {
         return password;
     }
