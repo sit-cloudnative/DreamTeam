@@ -2,6 +2,7 @@ package com.sit.cloudnative.UserService;
 
 import com.sit.cloudnative.UserService.exception.BadRequestException;
 import com.sit.cloudnative.UserService.exception.NotFoundException;
+import com.sit.cloudnative.UserService.exception.UnauthorizedException;
 import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,12 +52,20 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUserList() {
+    public ResponseEntity<List<User>> getUserList(@RequestHeader("Authorization") String auth) {
+        if(auth.isEmpty()){
+            throw new BadRequestException("Not have value in Authorization");
+        }
+        try {
+            tokenService.checkToken(auth);
+        } catch (Exception e) {
+            throw new UnauthorizedException(e.getMessage());
+        }
         return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable long id) {
+    public ResponseEntity<User> getUser(@PathVariable long id, @RequestHeader("Authorization") String auth ) {
         return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
     }
 
