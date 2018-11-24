@@ -1,5 +1,6 @@
 package com.sit.cloudnative.UserService;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.sit.cloudnative.UserService.exception.BadRequestException;
 import com.sit.cloudnative.UserService.exception.NotFoundException;
 import com.sit.cloudnative.UserService.exception.UnauthorizedException;
@@ -68,7 +69,7 @@ public class UserController {
         }
         try {
             tokenService.checkToken(auth);
-        } catch (Exception e) {
+        } catch (JWTVerificationException e) {
             logger.warn("Invalid token has try access /users");
             throw new UnauthorizedException(e.getMessage());
         }
