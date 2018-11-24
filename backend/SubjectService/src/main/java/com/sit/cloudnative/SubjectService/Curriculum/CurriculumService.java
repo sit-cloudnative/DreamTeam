@@ -3,8 +3,12 @@ package com.sit.cloudnative.SubjectService.Curriculum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.sit.cloudnative.SubjectService.exception.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 public class CurriculumService implements CurriculumServiceInterface {
@@ -14,14 +18,24 @@ public class CurriculumService implements CurriculumServiceInterface {
 
     @Override
     public Curriculum getCurriculumById(long curriculumId) {
-        Curriculum curriculum = curriculumAdapter.getProgramDetail(curriculumId);
+        Curriculum curriculum = new Curriculum();
+        try{
+            curriculum = curriculumAdapter.getProgramDetail(curriculumId); 
+        }catch(HttpClientErrorException httpException){
+            throw new NotFoundException("curriculumn not found");
+        }
         return curriculum;
     }
 
     @Override
     public List<Curriculum> getAllCurriculum() {
-        Curriculum[] curriculum = curriculumAdapter.getProgramList();
-        return new ArrayList<>(Arrays.asList(curriculum));
+        List<Curriculum> curriculum = new ArrayList<>();
+        try{
+            curriculum = Arrays.asList(curriculumAdapter.getProgramList());
+        }catch(HttpClientErrorException httpException){
+            throw new NotFoundException("curriculumn not found");
+        }
+        return curriculum;
     }
 
 }
