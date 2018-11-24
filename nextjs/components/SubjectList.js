@@ -26,14 +26,14 @@ export default class SubjectList extends React.Component {
     }
 
     async componentDidMount() {
-        let {data} = await axios.get('subject-service/curriculums')
+        let {data} = await axios.get('/curriculums')
         this.setState({ 
             curriculum: {data}.data 
         })
     }
 
     async getSubjectList(targetCurriculumId) {
-        const {data} = await axios.get('subject-service/curriculum/'+ targetCurriculumId+'/subjectlist')
+        const {data} = await axios.get('/curriculum/'+ targetCurriculumIds)
         this.setState({ subjectList: data })
     }
 
