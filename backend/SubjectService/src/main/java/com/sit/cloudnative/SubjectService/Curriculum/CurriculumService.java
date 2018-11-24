@@ -22,7 +22,7 @@ public class CurriculumService implements CurriculumServiceInterface {
         try{
             curriculum = curriculumAdapter.getProgramDetail(curriculumId); 
         }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("curriculumn not found");
+            throw new NotFoundException("target curriculumn id \'" + curriculumId + "\' is not found");
         }
         return curriculum;
     }
@@ -33,7 +33,7 @@ public class CurriculumService implements CurriculumServiceInterface {
         try{
             curriculum = Arrays.asList(curriculumAdapter.getProgramList());
         }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("curriculumn not found");
+            throw new NotFoundException("curriculumns are not found");
         }
         return curriculum;
     }
