@@ -2,7 +2,11 @@ package com.sit.cloudnative.SubjectService.Subject;
 
 import java.util.List;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.sit.cloudnative.SubjectService.TokenService;
+import com.sit.cloudnative.SubjectService.exception.BadRequestException;
 import com.sit.cloudnative.SubjectService.exception.NotFoundException;
+import com.sit.cloudnative.SubjectService.exception.UnauthorizedException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +28,9 @@ public class SubjectController {
 
     @Autowired
     SubjectService subjectListService;
+
+    @Autowired
+    TokenService tokenService;
 
     Logger logger = LoggerFactory.getLogger(SubjectController.class);
 
@@ -44,9 +52,21 @@ public class SubjectController {
     }
 
     @GetMapping("/subjects")
-    public ResponseEntity<List<Subject>> getSubjectList(@RequestParam String keyword) {
-        logger.info("Searching for " + keyword);
-        return new ResponseEntity<>(subjectListService.searchSubject(keyword.toLowerCase()), HttpStatus.OK);
+    public ResponseEntity<List<Subject>> getSubjectList(@RequestParam String keyword, @RequestHeader("Authorization") String auth) {
+        if (auth.isEmpty()) {
+            throw new BadRequestException("Not have value in Authorization");
+        }
+        try {
+            tokenService.checkToken(auth);
+            List<Subject> subjectList = subjectListService.searchSubject(keyword.toLowerCase());
+            logger.info("Searching for " + keyword);
+            return new ResponseEntity<>(subjectList, HttpStatus.OK);
+        } catch (JWTVerificationException e) {
+            throw new UnauthorizedException(e.getMessage());
+        } catch (Exception e) {
+            throw new NotFoundException(keyword + ": Keyword is not found");
+        }
     }
+    
 
 }
