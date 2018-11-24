@@ -35,14 +35,11 @@ public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/login")
-    public ResponseEntity<User> authenticate(@RequestBody HashMap<String, String> inputUser) {
-        if (!inputUser.containsKey("username") || !inputUser.containsKey("password")) {
-            logger.warn("Request Body doesn't have username, password");
-            throw new BadRequestException("RequestBody not have username or password.");
-        }
+    public ResponseEntity<User> authenticate(@Valid @RequestBody HashMap<String, String> inputUser) {
+        checkUsernameAndPassword(inputUser);
         User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
         if (user == null) {
-            logger.warn("user " + inputUser.get("username") + "not found or wrong password");
+            logger.warn("user " + inputUser.get("username") + " not found or wrong password");
             throw new NotFoundException("Not Found user. incorrect username or password.");
         }
         String token = tokenService.createToken(user);
@@ -84,5 +81,21 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Long> deleteUser(@PathVariable long id) {
         return new ResponseEntity<Long>(userService.deleteById(id), HttpStatus.OK);
+    }
+    
+    private void checkUsernameAndPassword(HashMap<String, String> inputUser){
+        if(!inputUser.isEmpty()){
+            if (!inputUser.containsKey("username")) {
+                logger.warn("User try to login with RequestBody that doesn't have username");
+                throw new BadRequestException("RequestBody incorrect.");
+            }
+            if (!inputUser.containsKey("password")){
+                logger.warn("User try to login with RequestBody that doesn't have password");
+                throw new BadRequestException("RequestBody incorrect.");
+            }
+        }else{
+            logger.warn("User try to login with null RequestBody");
+            throw new BadRequestException("RequestBody incorrect.");
+        }
     }
 }
