@@ -63,7 +63,7 @@ public class TokenService {
     
     public String getUser(String token){
         DecodedJWT djwt = checkToken(token);
-        Claim claim = djwt.getClaim("user");
+        Claim claim = djwt.getClaim("username");
         return claim.asString();
     }
 }
