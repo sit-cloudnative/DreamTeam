@@ -19,9 +19,5 @@
     "start": "next start",
     "build": "next build",
     "export": "next export"
-  },
-  "engines": {
-    "node": "4.2.4",
-    "npm": "3.10.10"
   }
 }
