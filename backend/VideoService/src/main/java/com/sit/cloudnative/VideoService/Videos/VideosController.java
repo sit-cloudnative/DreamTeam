@@ -55,7 +55,7 @@ public class VideosController {
         try {
             tokenService.checkToken(auth);
         } catch (AlgorithmMismatchException e) { // not match
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "not match algorithm");
+            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "not match token algorithm");
             throw new UnauthorizedException(e.getMessage());
         } catch (SignatureVerificationException e) { // secret key bad
             logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "secret key is not valid");

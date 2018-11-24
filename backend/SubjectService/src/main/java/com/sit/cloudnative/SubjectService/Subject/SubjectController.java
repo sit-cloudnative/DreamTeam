@@ -30,9 +30,6 @@ public class SubjectController {
     public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId) {
         logger.info("Get list of Subjects from curriculum ID = " + curriculumId);
         List<Subject> subjectList = subjectListService.getSubjectListByCurriculumId(curriculumId);
-        if(subjectList == null ){
-            throw new NotFoundException("curriculumn not found");
-        }
         return new ResponseEntity<>(subjectList, HttpStatus.OK);
     }
 
