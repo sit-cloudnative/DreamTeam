@@ -6,7 +6,7 @@ const ProfileCard = (props) => {
         <div>
             <div class="card text-center bg-dark" style={{ boxShadow: '0 3px 5px', margin: '50px', fontFamily: 'Lucida Console' }}>
                 <div class="card-header center">
-                    <img class="img-thumbnail" src="https://image.ibb.co/dGX6kL/feature-12-1.jpg" style={{ width: '100%', height: '200px' }} />
+                    <img class="img-thumbnail" src="https://image.ibb.co/dG2XCA/boy.png" style={{ width: '100%', height: '200px' }} />
                 </div>
                 <div class="card-body">
                     <h3 class="card-title" style={{ backgroundColor: '#f0f0f0' }}><b>Student Id</b>  </h3>
