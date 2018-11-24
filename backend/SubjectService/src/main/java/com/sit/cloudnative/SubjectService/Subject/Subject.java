@@ -16,6 +16,10 @@ public class Subject {
 
     private boolean isFavorite;
 
+    public Subject(){
+        
+    }
+
     @JsonCreator
     public Subject(@JsonProperty("subject_id") long subjectId, @JsonProperty("subject_name") String subjectName, @JsonProperty("subject_description") String subjectDescription, @JsonProperty("subject_code") String subjectCode) {
         this.subjectId = subjectId;
