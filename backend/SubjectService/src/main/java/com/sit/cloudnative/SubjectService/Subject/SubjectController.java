@@ -2,6 +2,8 @@ package com.sit.cloudnative.SubjectService.Subject;
 
 import java.util.List;
 
+import com.sit.cloudnative.SubjectService.exception.NotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class SubjectController {
     public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId) {
         logger.info("Get list of Subjects from curriculum ID = " + curriculumId);
         List<Subject> subjectList = subjectListService.getSubjectListByCurriculumId(curriculumId);
+        if(subjectList == null ){
+            throw new NotFoundException("curriculumn Id not found");
+        }
         return new ResponseEntity<>(subjectList, HttpStatus.OK);
     }
 
