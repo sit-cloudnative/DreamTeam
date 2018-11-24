@@ -42,7 +42,7 @@ public class VideoController {
             Video video = videoService.getVideoById(videoId);
             return new ResponseEntity<>(video, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "invalid video id (" + videoId + ")");
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found video id (" + videoId + ")");
             throw new NotFoundException("video " + videoId + " not found");
         }
     }
