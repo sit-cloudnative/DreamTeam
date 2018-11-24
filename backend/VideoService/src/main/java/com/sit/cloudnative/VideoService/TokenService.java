@@ -32,7 +32,7 @@ public class TokenService {
         verifier = JWT.require(algorithm).build();
     }
     
-    public DecodedJWT checkToken(String token) throws JWTVerificationException{
+    public DecodedJWT checkToken(String token){
         DecodedJWT djwt = verifier.verify(token);
         return djwt;
     }
