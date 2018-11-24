@@ -6,6 +6,8 @@ import com.sit.cloudnative.SubjectService.exception.BadRequestException;
 import com.sit.cloudnative.SubjectService.exception.UnauthorizedException;
 import java.util.List;
 
+import com.sit.cloudnative.SubjectService.exception.NotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,9 @@ public class SubjectController {
         }
         logger.info("Get list of Subjects from curriculum ID = " + curriculumId);
         List<Subject> subjectList = subjectListService.getSubjectListByCurriculumId(curriculumId);
+        if(subjectList == null ){
+            throw new NotFoundException("curriculumn not found");
+        }
         return new ResponseEntity<>(subjectList, HttpStatus.OK);
     }
 
@@ -56,7 +61,11 @@ public class SubjectController {
             throw new UnauthorizedException(e.getMessage());
         }
         logger.info("Get Subject by ID = " + subjectId);
-        return new ResponseEntity<>(subjectListService.getSubjectById(subjectId), HttpStatus.OK);
+        Subject subject = subjectListService.getSubjectById(subjectId);
+        if(subject == null ){
+            throw new NotFoundException("subjct not found");
+        }
+        return new ResponseEntity<>(subject, HttpStatus.OK);
     }
 
     @GetMapping("/subjects")
