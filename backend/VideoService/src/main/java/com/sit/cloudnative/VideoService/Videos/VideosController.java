@@ -42,7 +42,7 @@ public class VideosController {
             List<Videos> videoList = videosService.getVideoListBySubjectId(subjectId);
             return new ResponseEntity<>(videoList, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "invalid subject id (" + subjectId + ")");
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found subject id (" + subjectId + ")");
             throw new NotFoundException("subject " + subjectId + " not found");
         }
     }
