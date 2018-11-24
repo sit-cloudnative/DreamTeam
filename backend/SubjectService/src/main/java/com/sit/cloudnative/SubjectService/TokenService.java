@@ -1,15 +1,11 @@
-package com.sit.cloudnative.UserService;
+package com.sit.cloudnative.SubjectService;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,26 +30,6 @@ public class TokenService {
     private void init(){
         algorithm = Algorithm.HMAC256(secret);
         verifier = JWT.require(algorithm).build();
-    }
-    
-    public String createToken(User user){
-        LocalDateTime now = LocalDateTime.now();
-        try{
-            return JWT.create()
-                    .withIssuer("UserService")
-                    .withIssuedAt(Date.from(now
-                            .atZone(ZoneId.systemDefault()).toInstant()))
-                    .withExpiresAt(Date.from(now
-                            .plusSeconds(maxAgeSeconds)
-                            .atZone(ZoneId.systemDefault()).toInstant()))
-                    .withClaim("username", user.getUsername())
-                    .withClaim("firstname", user.getFirstname())
-                    .withClaim("lastname", user.getLastname())
-                    .withClaim("year", user.getYear())
-                    .sign(algorithm);
-        }catch(JWTCreationException e){
-            throw new JWTCreationException("Cannot properly create token", e);
-        }
     }
     
     public DecodedJWT checkToken(String token) throws JWTVerificationException{
