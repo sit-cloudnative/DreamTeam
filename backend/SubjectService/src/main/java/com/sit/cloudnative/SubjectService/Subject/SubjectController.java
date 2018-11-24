@@ -31,7 +31,7 @@ public class SubjectController {
         logger.info("Get list of Subjects from curriculum ID = " + curriculumId);
         List<Subject> subjectList = subjectListService.getSubjectListByCurriculumId(curriculumId);
         if(subjectList == null ){
-            throw new NotFoundException("curriculumn Id not found");
+            throw new NotFoundException("curriculumn not found");
         }
         return new ResponseEntity<>(subjectList, HttpStatus.OK);
     }
@@ -39,7 +39,11 @@ public class SubjectController {
     @GetMapping("/subject/{subjectId}")
     public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId) {
         logger.info("Get Subject by ID = " + subjectId);
-        return new ResponseEntity<>(subjectListService.getSubjectById(subjectId), HttpStatus.OK);
+        Subject subject = subjectListService.getSubjectById(subjectId);
+        if(subject == null ){
+            throw new NotFoundException("subjct not found");
+        }
+        return new ResponseEntity<>(subject, HttpStatus.OK);
     }
 
     @GetMapping("/subjects")
