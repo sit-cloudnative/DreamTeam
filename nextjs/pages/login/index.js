@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from '../../util/axios'
+import {userService} from '../../util/axios'
 import Head from 'next/head';
 import Router from 'next/router'
 import Footer from '../../components/Footer'
@@ -20,7 +20,7 @@ export default class extends React.Component {
         e.preventDefault()
         console.log(this.state.username)
         console.log(this.state.password)
-        const { data } = await axios({
+        const { data } = await userService({
             method: 'post',
             data: {
                 username: this.state.username,

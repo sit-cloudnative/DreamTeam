@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 export const userService = axios.create({
-  baseURL: 'localhost:8080/',
+  baseURL: 'https://dreamteam-userservice.mybluemix.net/',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': localStorage.getItem("token") || ' '
@@ -17,7 +17,7 @@ export const userService = axios.create({
 });
 
 export const subjectService = axios.create({
-  baseURL: 'localhost:8081/',
+  baseURL: 'https://dreamteam-subjectservice.mybluemix.net/',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': localStorage.getItem("token") || ' '
@@ -25,7 +25,7 @@ export const subjectService = axios.create({
 });
 
 export const userService = axios.create({
-  baseURL: 'localhost:8082/',
+  baseURL: 'https://dreamteam-videoservice.mybluemix.net/',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': localStorage.getItem("token") || ' '
