@@ -31,7 +31,7 @@ export default class NavBar extends React.Component {
   render() {
     return (
 
-      <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark" style={{ marginBottom: '50px' }}>
         <div className="col-md-2">
           <a className="navbar-brand" href="/"><i className="fa fa-cloud" style={{ fontSize: 18, color: 'white' }}></i> Dream-Learning </a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -39,7 +39,7 @@ export default class NavBar extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
-        <div className="col-md-7">
+        <div className="col-md-4">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
@@ -51,9 +51,14 @@ export default class NavBar extends React.Component {
             </ul>
           </div>
         </div>
+
         <div className="col-md-3">
           <SearchBar handleOnSearch={this.props.handleOnSearch} />
         </div>
+        <div className="col-md-3" style={{ fontSize: 18, color: 'white' }}>
+          {this.state.profile.studentId} 
+          {this.state.profile.firstname} {this.state.lastname}        </div>
+
       </nav >
 
     )
