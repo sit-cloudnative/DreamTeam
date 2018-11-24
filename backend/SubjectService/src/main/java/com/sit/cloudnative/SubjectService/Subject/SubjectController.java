@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.sit.cloudnative.SubjectService.TokenService;
@@ -33,9 +34,6 @@ public class SubjectController {
     @Autowired
     SubjectService subjectListService;
         
-    @Autowired
-    private TokenService tokenService;
-
     @Autowired
     TokenService tokenService;
 
