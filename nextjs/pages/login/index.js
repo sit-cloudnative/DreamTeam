@@ -28,6 +28,7 @@ export default class extends React.Component {
             },
             url: 'user-service/login'
         })
+        localStorage.setItem('token', data.token)
         localStorage.setItem('profileId', data.username)
         let localdata = localStorage.getItem('profileId')
         if (data.username == undefined) {
