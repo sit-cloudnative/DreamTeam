@@ -76,8 +76,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUser(@PathVariable long id, @RequestHeader("Authorization") String auth ) {
-        return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
+    public ResponseEntity<User> getUser(@PathVariable String id, @RequestHeader("Authorization") String auth ) {
+        return new ResponseEntity<User>(userService.findByUsername(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/user/{id}")
