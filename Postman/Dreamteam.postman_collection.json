@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e7b331f8-5432-4265-9dac-eedd5acb5c2c",
+		"_postman_id": "ef84432f-ec76-4b0b-b5be-5e3c76ce1fe0",
 		"name": "Dreamteam",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,28 +9,20 @@
 			"name": "User Service",
 			"item": [
 				{
-					"name": "Authentication Login",
+					"name": "Login",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "63eae9f7-8135-4f09-8280-728586fbb2e2",
 								"exec": [
-									"pm.test(\"Login success...\", function () {",
-									"        var jsonData = pm.response.json();",
-									"        var student_id = jsonData.studentId;",
-									"        var firstname = jsonData.firstname;",
-									"        var lastname = jsonData.lastname;",
-									"        var department = jsonData.department;",
-									"        var faculty = jsonData.faculty;",
-									"        var studentYear = jsonData.studentYear;",
-									"        pm.expect(student_id).to.eql(59130500128);",
-									"        pm.expect(firstname).to.eql(\"Tanapat\");",
-									"        pm.expect(lastname).to.eql(\"Choochot\");",
-									"        pm.expect(department).to.eql(\"IT\");",
-									"        pm.expect(faculty).to.eql(\"SIT\");",
-									"        pm.expect(studentYear).to.eql(3);",
-									"});"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Username is 59130500075\"] = pm.expect(json.username).to.eql(\"59130500075\")",
+									"tests[\"Firstname is Rattanan\"] = pm.expect(json.firstname).to.eql(\"Rattanan\")",
+									"tests[\"Token is defined\"] = json.token !== undefined",
+									"tests[\"Response time is accdeptable\"] = responseTime < 3000",
+									"pm.globals.set(\"token\", json.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -48,15 +40,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\" : \"59130500128\",\n\t\"password\" : \"82100503195\"\n}"
+							"raw": "{\n\t\"username\" : \"59130500075\",\n\t\"password\" : \"57000503195\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/login",
-							"protocol": "http",
+							"raw": "https://dreamteam-userservice.mybluemix.net/login",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"dreamteam-userservice",
+								"mybluemix",
+								"net"
 							],
-							"port": "8080",
 							"path": [
 								"login"
 							]
@@ -115,28 +108,18 @@
 					]
 				},
 				{
-					"name": "/user/{studentId}",
+					"name": "Get user with specific studentId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "894444a6-bec6-47fd-ad4b-a23fecc9e9d2",
 								"exec": [
-									"pm.test(\"get User form studentId 59130500128\", function () {",
-									"        var jsonData = pm.response.json();",
-									"        var student_id = jsonData.studentId;",
-									"        var firstname = jsonData.firstname;",
-									"        var lastname = jsonData.lastname;",
-									"        var department = jsonData.department;",
-									"        var faculty = jsonData.faculty;",
-									"        var studentYear = jsonData.studentYear;",
-									"        pm.expect(student_id).to.eql(59130500128);",
-									"        pm.expect(firstname).to.eql(\"Tanapat\");",
-									"        pm.expect(lastname).to.eql(\"Choochot\");",
-									"        pm.expect(department).to.eql(\"IT\");",
-									"        pm.expect(faculty).to.eql(\"SIT\");",
-									"        pm.expect(studentYear).to.eql(3);",
-									"});"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Username is 59130500075\"] = pm.expect(json.username).to.eql(\"59130500075\")",
+									"tests[\"Firstname is Rattanan\"] = pm.expect(json.firstname).to.eql(\"Rattanan\")",
+									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
 								],
 								"type": "text/javascript"
 							}
@@ -144,23 +127,170 @@
 					],
 					"request": {
 						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-userservice.mybluemix.net/user/59130500075",
+							"protocol": "https",
+							"host": [
+								"dreamteam-userservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"user",
+								"59130500075"
+							]
+						},
+						"description": "Get detail of studentId"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users in database",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "875e041c-61b3-4826-8a64-71980c1571ea",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Database is not empty\"] = json.length > 0",
+									"tests[\"Username is 59130500075\"] = pm.expect(json[0].username).to.eql(\"59130500075\")",
+									"tests[\"Firstname is Rattanan\"] = pm.expect(json[0].firstname).to.eql(\"Rattanan\")",
+									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-userservice.mybluemix.net/users",
+							"protocol": "https",
+							"host": [
+								"dreamteam-userservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "List of all user in database"
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c51ebde2-1c55-4d74-aef2-8f7ca67c19c9",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 201\"] = responseCode.code === 200",
+									"tests[\"Username is 59130500089\"] = pm.expect(json.username).to.eql(\"59130500089\")",
+									"tests[\"Firstname is Vitsarut\"] = pm.expect(json.firstname).to.eql(\"Vitsarut\")",
+									"tests[\"Response time is accdeptable\"] = responseTime < 3000",
+									"pm.globals.set(\"userId\", json.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"59130500089\",\n\t\"password\": \"98000503195\",\n\t\"firstname\": \"Vitsarut\",\n\t\"lastname\": \"Udomphol\",\n\t\"department\": \"IT\",\n\t\"faculty\": \"SIT\",\n\t\"year\": \"3\"\n}"
+						},
+						"url": {
+							"raw": "https://dreamteam-userservice.mybluemix.net/user",
+							"protocol": "https",
+							"host": [
+								"dreamteam-userservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "This request is test to create user with any username, password"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c7e30d9-9ef6-4d46-bb54-04365bc470b2",
+								"exec": [
+									"var responseUserId = pm.response.json()",
+									"var storageUserId = pm.globals.get(\"userId\");",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Response is userId = \" + storageUserId] = pm.expect(responseUserId).to.eql(storageUserId)",
+									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/59130500128",
-							"protocol": "http",
+							"raw": "https://dreamteam-userservice.mybluemix.net/user/{{userId}}",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"dreamteam-userservice",
+								"mybluemix",
+								"net"
 							],
-							"port": "8080",
 							"path": [
 								"user",
-								"59130500128"
+								"{{userId}}"
 							]
-						}
+						},
+						"description": "This test is use to delete user from database"
 					},
 					"response": []
 				}

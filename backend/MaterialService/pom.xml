@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sit.cloudnative</groupId>
-	<artifactId>UserService</artifactId>
+	<artifactId>MaterialService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>UserService</name>
+	<name>MaterialService</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -33,11 +33,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.4.1</version>
-        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -48,6 +44,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+                <dependency>
+                        <groupId>com.amazonaws</groupId>
+                        <artifactId>aws-java-sdk-s3</artifactId>
+                        <version>1.11.133</version>
+                 </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -63,5 +65,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

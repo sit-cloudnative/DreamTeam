@@ -2,7 +2,6 @@ package com.sit.cloudnative.VideoService.Videos;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.InvalidClaimException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.sit.cloudnative.VideoService.TokenService;
@@ -42,7 +41,7 @@ public class VideosController {
             List<Videos> videoList = videosService.getVideoListBySubjectId(subjectId);
             return new ResponseEntity<>(videoList, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "invalid subject id (" + subjectId + ")");
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found subject id (" + subjectId + ")");
             throw new NotFoundException("subject " + subjectId + " not found");
         }
     }

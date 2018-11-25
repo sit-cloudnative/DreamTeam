@@ -25,7 +25,7 @@ public class SubjectService {
         try{
             subjectAdapter.getSubjectListByCurriculumId(curriculumId);
         }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("target curriculumn not found");
+            throw new NotFoundException("target curriculumn id \'" + curriculumId + "\' is not found");
         }
         return subjectList;
     }
@@ -35,7 +35,7 @@ public class SubjectService {
         try{
             subject = subjectAdapter.getSubjectBySubjectId(subjectId);
         }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("target subject not found");
+            throw new NotFoundException("target subject id \'" + subjectId + "\' is not found");
         }
         return subject;
     }
