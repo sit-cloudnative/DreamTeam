@@ -20,4 +20,9 @@ public class MaterialController {
     public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
         return this.amazonService.uploadFile(file);
     }
+
+    @DeleteMapping("/deleteFile")
+    public String deleteFile(@RequestPart(value = "fileName") String fileName) {
+        return this.amazonService.deleteFileFromS3Bucket(fileName);
+    }
 }

@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import java.io.*;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class AmazonService {
     @Value("${AMAZON_REGION}")
     private String region;
 
-    @Value("${amazon.endpointUrl}")
+    @Value("${AMAZON_ENDPOINTURL}")
     private String endpointUrl;
 
     public AmazonService() {
@@ -84,16 +85,28 @@ public class AmazonService {
     }
 
     public String uploadFile(MultipartFile multipartFile) {
-        String fileUrl = "";
+        String uploadStatus = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
             String fileName = generateFileName(multipartFile);
-            fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
             uploadFileTos3bucket(fileName, file);
+            uploadStatus = "Upload file [" + fileName + "] Successfully!";
             file.delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return fileUrl;
+        return uploadStatus;
     }
+
+    public String deleteFileFromS3Bucket(String fileName) {
+        String deleteStatus = "";
+        try {
+            s3client.deleteObject(new DeleteObjectRequest(bucketName + "/", fileName));
+            deleteStatus =  "Delete File [" + fileName + "] Successfully!";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deleteStatus;
+    }
+
 }
