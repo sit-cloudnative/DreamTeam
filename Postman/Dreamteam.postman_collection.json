@@ -21,7 +21,7 @@
 									"tests[\"Username is 59130500075\"] = pm.expect(json.username).to.eql(\"59130500075\")",
 									"tests[\"Firstname is Rattanan\"] = pm.expect(json.firstname).to.eql(\"Rattanan\")",
 									"tests[\"Token is defined\"] = json.token !== undefined",
-									"tests[\"Response time is accdeptable\"] = responseTime < 3000",
+									"tests[\"Response time is acceptable\"] = responseTime < 3000",
 									"pm.globals.set(\"token\", json.token);"
 								],
 								"type": "text/javascript"
@@ -119,7 +119,7 @@
 									"tests[\"Response status is 200\"] = responseCode.code === 200",
 									"tests[\"Username is 59130500075\"] = pm.expect(json.username).to.eql(\"59130500075\")",
 									"tests[\"Firstname is Rattanan\"] = pm.expect(json.firstname).to.eql(\"Rattanan\")",
-									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
+									"tests[\"Response time is acceptable\"] = responseTime < 3000"
 								],
 								"type": "text/javascript"
 							}
@@ -168,7 +168,7 @@
 									"tests[\"Database is not empty\"] = json.length > 0",
 									"tests[\"Username is 59130500075\"] = pm.expect(json[0].username).to.eql(\"59130500075\")",
 									"tests[\"Firstname is Rattanan\"] = pm.expect(json[0].firstname).to.eql(\"Rattanan\")",
-									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
+									"tests[\"Response time is acceptable\"] = responseTime < 3000"
 								],
 								"type": "text/javascript"
 							}
@@ -215,7 +215,7 @@
 									"tests[\"Response status is 201\"] = responseCode.code === 200",
 									"tests[\"Username is 59130500089\"] = pm.expect(json.username).to.eql(\"59130500089\")",
 									"tests[\"Firstname is Vitsarut\"] = pm.expect(json.firstname).to.eql(\"Vitsarut\")",
-									"tests[\"Response time is accdeptable\"] = responseTime < 3000",
+									"tests[\"Response time is acceptable\"] = responseTime < 3000",
 									"pm.globals.set(\"userId\", json.id)"
 								],
 								"type": "text/javascript"
@@ -264,7 +264,7 @@
 									"var storageUserId = pm.globals.get(\"userId\");",
 									"tests[\"Response status is 200\"] = responseCode.code === 200",
 									"tests[\"Response is userId = \" + storageUserId] = pm.expect(responseUserId).to.eql(storageUserId)",
-									"tests[\"Response time is accdeptable\"] = responseTime < 3000"
+									"tests[\"Response time is acceptable\"] = responseTime < 3000"
 								],
 								"type": "text/javascript"
 							}
@@ -300,20 +300,21 @@
 			"name": "SubjectList Service",
 			"item": [
 				{
-					"name": "/curriculum",
+					"name": "Get all curriculum from nge api",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "310b0363-fb75-44d1-bd77-e360de3599c9",
 								"exec": [
-									"pm.test(\"แสดง list ของ curriculum ทั้งหมด\", function(){",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].curriculumId).to.eql(1);",
-									"    pm.expect(jsonData[0].curriculumName).to.eql(\"Bachelor of Science Program in Information Technology\");",
-									"    pm.expect(jsonData[0].curriculumCode).to.eql(\"B.Sc.IT\");",
-									"    pm.expect(jsonData[0].curriculumDescription).to.eql(\"\");",
-									"})"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"There are more than 1 curriculum\"] = json.length > 1",
+									"tests[\"First curriculum is Id 1\"] = pm.expect(json[0].curriculumId).to.eql(1)",
+									"tests[\"First curriculum is name Bachelor of Science Program in Information Technology\"] = json[0].curriculumName === \"Bachelor of Science Program in Information Technology\"",
+									"tests[\"First curriculum is code B.Sc.IT\"] = json[0].curriculumCode === \"B.Sc.IT\"",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -321,42 +322,48 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/curriculums",
+							"raw": "https://dreamteam-subjectservice.mybluemix.net/curriculums",
 							"protocol": "https",
 							"host": [
-								"dreamteam-gateway",
+								"dreamteam-subjectservice",
 								"mybluemix",
 								"net"
 							],
 							"path": [
-								"subject-service",
 								"curriculums"
 							]
-						}
+						},
+						"description": "This test use to get list of all curriculum from NGE API endpoint and check data in ther first curriculum that appear"
 					},
 					"response": []
 				},
 				{
-					"name": "/curriculum/{curriculumId}",
+					"name": "Get subjects of curriculum id 1",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "09a99723-21a8-4179-8d9f-ad0ea6b713d9",
 								"exec": [
-									"pm.test(\"แสดง curriculum ที่มี id 1\", function(){",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.curriculumId).to.eql(1);",
-									"    pm.expect(jsonData.curriculumName).to.eql(\"Bachelor of Science Program in Information Technology\");",
-									"    pm.expect(jsonData.curriculumCode).to.eql(\"B.Sc.IT\");",
-									"    pm.expect(jsonData.curriculumDescription).to.eql(\"\");",
-									"})"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Curriculum is Id 1\"] = pm.expect(json.curriculumId).to.eql(1)",
+									"tests[\"Curriculum is name Bachelor of Science Program in Information Technology\"] = json.curriculumName === \"Bachelor of Science Program in Information Technology\"",
+									"tests[\"Curriculum is code B.Sc.IT\"] = json.curriculumCode === \"B.Sc.IT\"",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -364,43 +371,50 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/curriculum/1",
+							"raw": "https://dreamteam-subjectservice.mybluemix.net/curriculum/1",
 							"protocol": "https",
 							"host": [
-								"dreamteam-gateway",
+								"dreamteam-subjectservice",
 								"mybluemix",
 								"net"
 							],
 							"path": [
-								"subject-service",
 								"curriculum",
 								"1"
 							]
-						}
+						},
+						"description": "This test use to get data of curriculum id 1"
 					},
 					"response": []
 				},
 				{
-					"name": "/subjectlist/curriculum/{curriculumId}",
+					"name": "Get subjects from specific curriculum id 1",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "05535359-83bc-48a8-a84a-17984145b5a3",
 								"exec": [
-									"pm.test(\"แสดง subject list ของ curriculumId 1\", function(){",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].subjectId).to.eql(2);",
-									"    pm.expect(jsonData[0].subjectName).to.eql(\"IT Fundamental\");",
-									"    pm.expect(jsonData[0].subjectDes).to.eql(\"\");",
-									"    pm.expect(jsonData[0].isFavorite).to.eql(false);",
-									"})"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"There are 17 subjects for curriculum id = 1\"] = pm.expect(json.length).to.eql(17)",
+									"tests[\"First subject is id = 2\"] = pm.expect(json[0].subjectId).to.eql(2)",
+									"tests[\"First subject is name IT Fundamental\"] = pm.expect(json[0].subjectName).to.eql(\"IT Fundamental\")",
+									"tests[\"First subject is code INT101\"] = pm.expect(json[0].subjectCode).to.eql(\"INT101\")",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -408,24 +422,27 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-gateway.mybluemix.net/subject-service/subjectlist/curriculum/1",
-							"protocol": "https",
+							"raw": "localhost:8081/curriculum/1/subjects",
 							"host": [
-								"dreamteam-gateway",
-								"mybluemix",
-								"net"
+								"localhost"
 							],
+							"port": "8081",
 							"path": [
-								"subject-service",
-								"subjectlist",
 								"curriculum",
-								"1"
+								"1",
+								"subjects"
 							]
 						}
 					},

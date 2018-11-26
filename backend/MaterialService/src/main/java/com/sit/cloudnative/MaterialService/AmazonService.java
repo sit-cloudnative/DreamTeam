@@ -29,7 +29,7 @@ public class AmazonService {
     @Value("${amazon.secretKey}")
     private String secretKey;
     
-    @Value("${AMAZON_REGION}")
+    @Value("${amazon.regions}")
     private String region;
 
     @Value("${AMAZON_ENDPOINTURL}")
