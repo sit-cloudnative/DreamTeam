@@ -45,17 +45,16 @@ public class UserController {
     public ResponseEntity<User> authenticate(@Valid @RequestBody HashMap<String, String> inputUser,
                                              HttpServletRequest request) {
         checkUsernameAndPassword(inputUser);
-        User user = null;
         try {
-            user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
-        } catch (HttpClientErrorException e) {
+            User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
+            String token = tokenService.createToken(user);
+            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "login to " + inputUser.get("username"));
+            user.setToken(token);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } catch (HttpClientErrorException | NullPointerException e) {
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "userame or password is invalid");
             throw new NotFoundException("Not Found user. incorrect username or password.");
         }
-        String token = tokenService.createToken(user);
-        logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "login to " + inputUser.get("username"));
-        user.setToken(token);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @PostMapping("/user")
@@ -65,8 +64,14 @@ public class UserController {
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not have username or password");
             throw new BadRequestException("RequestBody not have user");
         }
-        logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "created user " + user.getUsername());
-        return new ResponseEntity<User>(userService.createUser(user), HttpStatus.OK);
+        try {
+            User newUser = userService.createUser(user);
+            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "created user " + user.getUsername());
+            return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        } catch (HttpClientErrorException e) {
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "duplicate username in database (" + user.getUsername() + ")");
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
     @GetMapping("/users")
