@@ -56,8 +56,9 @@ export default class NavBar extends React.Component {
           <SearchBar handleOnSearch={this.props.handleOnSearch} />
         </div>
         <div className="col-md-3" style={{ fontSize: 18, color: 'white' }}>
-          {this.state.profile.studentId} 
-          {this.state.profile.firstname} {this.state.lastname}        </div>
+          {this.state.profile.studentId}
+          {this.state.profile.firstname} {this.state.profile.lastname}
+        </div>
 
       </nav >
 
