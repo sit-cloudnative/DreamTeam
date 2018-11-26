@@ -5,6 +5,7 @@ import Router from 'next/router'
 import Head from 'next/head';
 import Line from '../components/Line'
 import ButtonS from '../components/ButtonS'
+import FavoriteSubjectCard from '../components/FavoriteSubjectCard'
 
 
 export default class NavBar extends React.Component {
@@ -15,7 +16,8 @@ export default class NavBar extends React.Component {
         studentId: '',
         firstname: '',
         lastname: '',
-      }
+      },
+      favoriteSubject: []
     }
   }
 
@@ -29,6 +31,13 @@ export default class NavBar extends React.Component {
 
 
   render() {
+    const favoriteSubjects = this.state.favoriteSubject.map(subject => {
+      return <FavoriteSubject
+        favoriteSubjectId={subject.subjectId}
+        favoriteSubjectName={subject.subjectName} />
+    })
+
+
     return (
 
       <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark" style={{ marginBottom: '50px' }}>
@@ -48,6 +57,16 @@ export default class NavBar extends React.Component {
               <li>
                 <a id="subjects" className="nav-link" href="/subjects">Curriculum <span className="sr-only">(current)</span></a>
               </li>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Favorites
+              </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Subject1</a>
+                  <a class="dropdown-item" href="#">Subject2</a>
+                  <a class="dropdown-item" href="#">Subject3</a>
+                </div>
+              </div>
             </ul>
           </div>
         </div>
