@@ -2,8 +2,11 @@ package com.sit.cloudnative.SubjectService.Subject;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
@@ -40,8 +43,10 @@ public class SubjectController {
     Logger logger = LoggerFactory.getLogger(SubjectController.class);
 
     @RequestMapping(value = "/curriculum/{curriculumId}/subjects", method = RequestMethod.GET)
-    public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId, @RequestHeader("Authorization") String auth) {
-        validateToken(auth);
+    public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId, 
+                                                                      @RequestHeader("Authorization") String auth,
+                                                                      HttpServletRequest request) {
+        validateToken(auth, request);
         try {
             List<Subject> subjectList = subjectListService.getSubjectListByCurriculumId(curriculumId);
             return new ResponseEntity<>(subjectList, HttpStatus.OK);
@@ -52,8 +57,10 @@ public class SubjectController {
     }
 
     @GetMapping("/subject/{subjectId}")
-    public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId, @RequestHeader("Authorization") String auth) {
-        validateToken(auth);
+    public ResponseEntity<Subject> getSubjectById(@PathVariable long subjectId, 
+                                                  @RequestHeader("Authorization") String auth,
+                                                  HttpServletRequest request) {
+        validateToken(auth, request);
         try {
             Subject subject = subjectListService.getSubjectById(subjectId);
             return new ResponseEntity<>(subject, HttpStatus.OK);
@@ -64,8 +71,10 @@ public class SubjectController {
     }
 
     @GetMapping("/subjects")
-    public ResponseEntity<List<Subject>> getSubjectList(@RequestParam String keyword, @RequestHeader("Authorization") String auth) {
-        validateToken(auth);
+    public ResponseEntity<List<Subject>> getSubjectList(@RequestParam String keyword, 
+                                                        @RequestHeader("Authorization") String auth,
+                                                        HttpServletRequest request) {
+        validateToken(auth, request);
         try {
             List<Subject> subjectList = subjectListService.searchSubject(keyword.toLowerCase());
             logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "search "+keyword);
@@ -77,27 +86,30 @@ public class SubjectController {
     }
     
 
-    private void validateToken (String auth) {
+    private void validateToken (String auth, HttpServletRequest request) {
         if(auth.trim().isEmpty()){
-            logger.warn(System.currentTimeMillis() + " | " + "unknown user" + " | " + "Authorization token not found in header");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "Authorization token not found in header");
             throw new BadRequestException("Not have value in Authorization");
         }
         try {
             tokenService.checkToken(auth);
         } catch (AlgorithmMismatchException e) { // not match
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "not match token algorithm");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "not match token algorithm (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
         } catch (SignatureVerificationException e) { // secret key bad
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "secret key is not valid");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "secret key is not valid (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
         } catch (TokenExpiredException e) { // expired
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "token is expired");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "token is expired (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
         } catch (InvalidClaimException e) { // invalid claim
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "invalid claim value");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "invalid claim value (" + auth + ")");
+            throw new UnauthorizedException(e.getMessage());
+        } catch (JWTDecodeException e) {
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "token does not contain 3 parts (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
         } catch (Exception e) {
-            logger.warn(System.currentTimeMillis() + " | " + auth + " | " + "unknow error");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "unknown error (" + auth + ")");
         }
     }
 
