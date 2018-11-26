@@ -39,7 +39,7 @@ public class SubjectController {
 
     Logger logger = LoggerFactory.getLogger(SubjectController.class);
 
-    @RequestMapping(value = "/curriculum/{curriculumId}/subjectlist", method = RequestMethod.GET)
+    @RequestMapping(value = "/curriculum/{curriculumId}/subjects", method = RequestMethod.GET)
     public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId, @RequestHeader("Authorization") String auth) {
         validateToken(auth);
         try {

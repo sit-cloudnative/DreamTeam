@@ -34,7 +34,7 @@ public class VideosController {
 
     Logger logger = LoggerFactory.getLogger(VideosController.class);
 
-    @GetMapping("/videos/{subjectId}")
+    @GetMapping("/subject/{subjectId}/videos")
     public ResponseEntity<List<Videos>> getVideoList(@PathVariable long subjectId, @RequestHeader("Authorization") String auth) {
         validateToken(auth);
         try {
