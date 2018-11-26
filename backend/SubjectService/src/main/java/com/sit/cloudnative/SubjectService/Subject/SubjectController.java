@@ -65,18 +65,14 @@ public class SubjectController {
 
     @GetMapping("/subjects")
     public ResponseEntity<List<Subject>> getSubjectList(@RequestParam String keyword, @RequestHeader("Authorization") String auth) {
-        if (auth.isEmpty()) {
-            throw new BadRequestException("Not have value in Authorization");
-        }
+        validateToken(auth);
         try {
-            tokenService.checkToken(auth);
             List<Subject> subjectList = subjectListService.searchSubject(keyword.toLowerCase());
-            logger.info("Searching for " + keyword);
+            logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "search "+keyword);
             return new ResponseEntity<>(subjectList, HttpStatus.OK);
-        } catch (JWTVerificationException e) {
-            throw new UnauthorizedException(e.getMessage());
-        } catch (Exception e) {
-            throw new NotFoundException(keyword + ": Keyword is not found");
+        } catch (HttpClientErrorException e) {
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found keyword for (" + keyword + ")");
+            throw new NotFoundException("keyword " + keyword + " not found");
         }
     }
     
