@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 public class SubjectService {
@@ -21,22 +20,12 @@ public class SubjectService {
     private CurriculumService curriculumService;
 
     public List<Subject> getSubjectListByCurriculumId(long curriculumId) {
-        List<Subject> subjectList = new ArrayList<Subject>();
-        try{
-            subjectAdapter.getSubjectListByCurriculumId(curriculumId);
-        }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("target curriculumn id \'" + curriculumId + "\' is not found");
-        }
+        List<Subject> subjectList = subjectAdapter.getSubjectListByCurriculumId(curriculumId);     
         return subjectList;
     }
 
     public Subject getSubjectById(long subjectId) {
-        Subject subject = new Subject();
-        try{
-            subject = subjectAdapter.getSubjectBySubjectId(subjectId);
-        }catch(HttpClientErrorException httpException){
-            throw new NotFoundException("target subject id \'" + subjectId + "\' is not found");
-        }
+        Subject subject = subjectAdapter.getSubjectBySubjectId(subjectId);
         return subject;
     }
 
