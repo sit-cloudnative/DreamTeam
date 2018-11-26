@@ -3,6 +3,8 @@ package com.sit.cloudnative.VideoService.Video;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.util.Map;
 
 public class Video {
@@ -46,7 +48,7 @@ public class Video {
     public long getVideoId() {
         return videoId;
     }
-
+    @JsonSetter("video_id")
     public void setVideoId(long videoId) {
         this.videoId = videoId;
     }
@@ -67,18 +69,19 @@ public class Video {
         this.watched = watched;
     }
 
+    @JsonGetter("lecturer")
     public String getLecturer() {
         return lecturer;
     }
-
+    @JsonSetter("teacher")
     public void setLecturer(String lecturer) {
         this.lecturer = lecturer;
     }
-
+    @JsonGetter("videoName")
     public String getVideoName() {
         return videoName;
     }
-
+    @JsonSetter("video_name")
     public void setVideoName(String videoName) {
         this.videoName = videoName;
     }
@@ -98,11 +101,11 @@ public class Video {
     public void setPeriod(String period) {
         this.period = period;
     }
-
+    @JsonGetter("videoPath")
     public String getVideoPath() {
         return videoPath;
     }
-
+    @JsonSetter("player")
     public void setVideoPath(String videoPath) {
         this.videoPath = videoPath;
     }
