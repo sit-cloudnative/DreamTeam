@@ -1,19 +1,18 @@
 package com.sit.cloudnative.MaterialService;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import com.amazonaws.services.s3.transfer.Upload;
-import java.io.File;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import java.io.*;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class AmazonService {
@@ -29,8 +28,11 @@ public class AmazonService {
     @Value("${amazon.secretKey}")
     private String secretKey;
     
-    @Value("${amazon.region}")
+    @Value("${AMAZON_REGION}")
     private String region;
+
+    @Value("${amazon.endpointUrl}")
+    private String endpointUrl;
 
     public AmazonService() {
     }
@@ -45,22 +47,53 @@ public class AmazonService {
                .build();
     }
       
-    public void uploadFile() {
+//    public void uploadFile() {
+//        try {
+//            TransferManager tm = TransferManagerBuilder.standard()
+//                                .withS3Client(s3client)
+//                                .build();
+//            Upload upload = tm.upload(bucketName, "test7.txt", new File("C:\\Users\\sangu\\Documents\\test.txt"));
+//        }
+//        catch(AmazonServiceException e) {
+//            // The call was transmitted successfully, but Amazon S3 couldn't process
+//            // it, so it returned an error response.
+//            e.printStackTrace();
+//        }
+//        catch(SdkClientException e) {
+//            // Amazon S3 couldn't be contacted for a response, or the client
+//            // couldn't parse the response from Amazon S3.
+//            e.printStackTrace();
+//        }
+//    }
+
+    private File convertMultiPartToFile(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
+    }
+
+    private String generateFileName(MultipartFile multiPart) {
+        return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+    }
+
+    private void uploadFileTos3bucket(String fileName, File file) {
+        s3client.putObject(new PutObjectRequest(bucketName, fileName, file)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
+    }
+
+    public String uploadFile(MultipartFile multipartFile) {
+        String fileUrl = "";
         try {
-            TransferManager tm = TransferManagerBuilder.standard()
-                                .withS3Client(s3client)
-                                .build();
-            Upload upload = tm.upload(bucketName, "test7.txt", new File("C:\\Users\\sangu\\Documents\\test.txt"));           
-        }
-        catch(AmazonServiceException e) {
-            // The call was transmitted successfully, but Amazon S3 couldn't process 
-            // it, so it returned an error response.
+            File file = convertMultiPartToFile(multipartFile);
+            String fileName = generateFileName(multipartFile);
+            fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+            uploadFileTos3bucket(fileName, file);
+            file.delete();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        catch(SdkClientException e) {
-            // Amazon S3 couldn't be contacted for a response, or the client 
-            // couldn't parse the response from Amazon S3.
-            e.printStackTrace();
-        }
+        return fileUrl;
     }
 }
