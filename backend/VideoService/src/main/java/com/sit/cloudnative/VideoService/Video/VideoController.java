@@ -44,6 +44,7 @@ public class VideoController {
         validateToken(auth, request);
         try {
             Video video = videoService.getVideoById(videoId);
+            logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "watch video id (" + videoId + ")");
             return new ResponseEntity<>(video, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found video id (" + videoId + ")");
@@ -58,16 +59,16 @@ public class VideoController {
         }
         try {
             tokenService.checkToken(auth);
-        } catch (AlgorithmMismatchException e) { // not match
+        } catch (AlgorithmMismatchException e) {
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "not match token algorithm (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
-        } catch (SignatureVerificationException e) { // secret key bad
+        } catch (SignatureVerificationException e) {
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "secret key is not valid (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
-        } catch (TokenExpiredException e) { // expired
+        } catch (TokenExpiredException e) { 
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "token is expired (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
-        } catch (InvalidClaimException e) { // invalid claim
+        } catch (InvalidClaimException e) { 
             logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "invalid claim value (" + auth + ")");
             throw new UnauthorizedException(e.getMessage());
         } catch (JWTDecodeException e) {
