@@ -16,14 +16,12 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class AmazonService {
@@ -46,7 +44,7 @@ public class AmazonService {
     private String endpointUrl;
 
     Logger logger = LoggerFactory.getLogger(MaterialController.class);
-    
+
     public AmazonService() {
     }
 
@@ -60,29 +58,15 @@ public class AmazonService {
                 .build();
     }
 
-    public String uploadFile(MultipartFile multipartFile) {
-        String uploadStatus = "";
-        try {
-            File file = convertMultiPartToFile(multipartFile);
-            String fileName = generateFileName(multipartFile);
-            uploadFileTos3bucket(fileName, file);
-            uploadStatus = "Upload file [" + fileName + "] Successfully!";
-            file.delete();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return uploadStatus;
+    public String uploadFile(String fileName, File file) {
+        s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
+        file.delete();
+        return "Upload file [" + fileName + "] Successfully!";
     }
 
     public String deleteFileFromS3Bucket(String fileName) {
-        String deleteStatus = "";
-        try {
-            s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
-            deleteStatus = "Delete File [" + fileName + "] Successfully!";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return deleteStatus;
+        s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
+        return "Delete File [" + fileName + "] Successfully!";
     }
 
     public List<String> listFiles() {
@@ -133,22 +117,6 @@ public class AmazonService {
             throw ace;
         }
         return null;
-    }
-
-    private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
-    }
-
-    private String generateFileName(MultipartFile multiPart) {
-        return new Date().getTime() + "-" + multiPart.getOriginalFilename().replaceAll("[^.,a-zA-Z0-9]", "_");
-    }
-
-    private void uploadFileTos3bucket(String fileName, File file) {
-        s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
     }
 
 }
