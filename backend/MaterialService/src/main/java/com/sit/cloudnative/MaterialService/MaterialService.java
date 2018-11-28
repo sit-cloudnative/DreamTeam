@@ -1,5 +1,6 @@
 package com.sit.cloudnative.MaterialService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,20 +30,27 @@ public class MaterialService {
 
     public Material uploadMaterial(String subjectCode, MultipartFile multipartFile) throws IOException {
         String OriginalName = multipartFile.getOriginalFilename();
-        String fileName = generateFileName(subjectCode, multipartFile);
+        String uploadFileName = generateFileName(subjectCode, multipartFile);
         File file = convertMultiPartToFile(multipartFile);
 
-        amazonService.uploadFile(fileName, file);
+        amazonService.uploadFile(uploadFileName, file);
 
         Material material = new Material();
         material.setFileName(OriginalName);
-        material.setFileKey(fileName);
+        material.setFileKey(uploadFileName);
         material.setFileOwner("test");
         material.setSubjectCode(subjectCode);
         return materialRepository.save(material);
     }
 
-    public long delete(long id) {
+    public byte[] downloadMaterial(Material material) {
+        ByteArrayOutputStream downloadInputStream = amazonService.downloadFile(material.getFileKey());
+        return downloadInputStream.toByteArray();
+    }
+
+    public long deleteMaterialById(long id) {
+        Material material = materialRepository.findById(id).get();
+        amazonService.deleteFile(material.getFileKey());
         materialRepository.deleteById(id);
         return id;
     }

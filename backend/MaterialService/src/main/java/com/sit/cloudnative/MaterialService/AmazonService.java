@@ -58,40 +58,14 @@ public class AmazonService {
                 .build();
     }
 
-    public String uploadFile(String fileName, File file) {
-        s3client.putObject(new PutObjectRequest(bucketName, fileName, file));
+    public void uploadFile(String fileKey, File file) {
+        s3client.putObject(new PutObjectRequest(bucketName, fileKey, file));
         file.delete();
-        return "Upload file [" + fileName + "] Successfully!";
     }
 
-    public String deleteFileFromS3Bucket(String fileName) {
-        s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
-        return "Delete File [" + fileName + "] Successfully!";
-    }
-
-    public List<String> listFiles() {
-        ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
-                .withBucketName(bucketName);
-        List<String> keys = new ArrayList<>();
-        ObjectListing objects = s3client.listObjects(listObjectsRequest);
-        while (true) {
-            List<S3ObjectSummary> summaries = objects.getObjectSummaries();
-            if (summaries.size() < 1) {
-                break;
-            }
-            for (S3ObjectSummary item : summaries) {
-                if (!item.getKey().endsWith("/")) {
-                    keys.add(item.getKey());
-                }
-            }
-            objects = s3client.listNextBatchOfObjects(objects);
-        }
-        return keys;
-    }
-
-    public ByteArrayOutputStream downloadFile(String keyName) {
+    public ByteArrayOutputStream downloadFile(String fileKey) {
         try {
-            S3Object s3object = s3client.getObject(new GetObjectRequest(bucketName, keyName));
+            S3Object s3object = s3client.getObject(new GetObjectRequest(bucketName, fileKey));
 
             InputStream is = s3object.getObjectContent();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -117,6 +91,30 @@ public class AmazonService {
             throw ace;
         }
         return null;
+    }
+
+    public void deleteFile(String fileKey) {
+        s3client.deleteObject(new DeleteObjectRequest(bucketName, fileKey));
+    }
+
+    public List<String> listFiles() {
+        ListObjectsRequest listObjectsRequest = new ListObjectsRequest()
+                .withBucketName(bucketName);
+        List<String> keys = new ArrayList<>();
+        ObjectListing objects = s3client.listObjects(listObjectsRequest);
+        while (true) {
+            List<S3ObjectSummary> summaries = objects.getObjectSummaries();
+            if (summaries.size() < 1) {
+                break;
+            }
+            for (S3ObjectSummary item : summaries) {
+                if (!item.getKey().endsWith("/")) {
+                    keys.add(item.getKey());
+                }
+            }
+            objects = s3client.listNextBatchOfObjects(objects);
+        }
+        return keys;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.sit.cloudnative.MaterialService;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +19,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class MaterialController {
-
+    
     @Autowired
     private MaterialService materialService;
-
+    
     @Autowired
     private AmazonService amazonService;
-
+    
     Logger logger = LoggerFactory.getLogger(MaterialController.class);
-
+    
+    @GetMapping("/files")
+    public ResponseEntity<List<Material>> listAllFiles() {
+        return new ResponseEntity<List<Material>>(materialService.getMaterialList(), HttpStatus.OK);
+    }
+    
     @PostMapping("/file/{subjectCode}")
     public ResponseEntity<Material> uploadFile(@PathVariable String subjectCode, @RequestPart(value = "file") MultipartFile file) {
         try {
@@ -38,28 +42,21 @@ public class MaterialController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
-    @GetMapping("/files")
-    public ResponseEntity<List<Material>> listAllFiles() {
-        return new ResponseEntity<List<Material>>(materialService.getMaterialList(), HttpStatus.OK);
+    
+    @DeleteMapping("/file/{materialId}")
+    public ResponseEntity<Long> deleteFile(@PathVariable long materialId) {
+        return new ResponseEntity<Long>(materialService.deleteMaterialById(materialId), HttpStatus.OK);
     }
-
-    @DeleteMapping("/file")
-    public ResponseEntity<String> deleteFile(@RequestPart(value = "fileName") String fileName) {
-        return new ResponseEntity<String>(amazonService.deleteFileFromS3Bucket(fileName), HttpStatus.OK);
-    }
-
+    
     @GetMapping("/file/{materialId}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable long materialId) {
         Material material = materialService.getMaterialById(materialId).get();
-        ByteArrayOutputStream downloadInputStream = amazonService.downloadFile(material.getFileKey());
-
         return ResponseEntity.ok()
                 .contentType(contentType(material.getFileName()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + material.getFileName() + "\"")
-                .body(downloadInputStream.toByteArray());
+                .body(materialService.downloadMaterial(material));
     }
-
+    
     private MediaType contentType(String keyname) {
         String[] arr = keyname.split("\\.");
         String type = arr[arr.length - 1];
