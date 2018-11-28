@@ -599,7 +599,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-videoservice.mybluemix.net/video/8263",
+							"raw": "https://dreamteam-videoservice.mybluemix.net/video/8282",
 							"protocol": "https",
 							"host": [
 								"dreamteam-videoservice",
@@ -608,7 +608,7 @@
 							],
 							"path": [
 								"video",
-								"8263"
+								"8282"
 							]
 						},
 						"description": "This test use to test the data of video id 8282"
