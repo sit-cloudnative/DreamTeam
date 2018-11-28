@@ -23,18 +23,15 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
     
-    @Autowired
-    private AmazonService amazonService;
-    
     Logger logger = LoggerFactory.getLogger(MaterialController.class);
     
     @GetMapping("/files")
-    public ResponseEntity<List<Material>> listAllFiles() {
+    public ResponseEntity<List<Material>> getAllFiles() {
         return new ResponseEntity<List<Material>>(materialService.getMaterialList(), HttpStatus.OK);
     }
     
     @GetMapping("/files/{subjectCode}")
-    public ResponseEntity<List<Material>> listFilesBySubjectCode(@PathVariable String subjectCode) {
+    public ResponseEntity<List<Material>> getFilesBySubjectCode(@PathVariable String subjectCode) {
         return new ResponseEntity<List<Material>>(materialService.getMaterialListBySubjectCode(subjectCode), HttpStatus.OK);
     }
     
