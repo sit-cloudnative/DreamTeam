@@ -1,6 +1,9 @@
 package com.sit.cloudnative.MaterialService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,16 +22,26 @@ import org.springframework.web.multipart.MultipartFile;
 public class MaterialController {
 
     @Autowired
+    private MaterialService materialService;
+
+    @Autowired
     private AmazonService amazonService;
 
-    @PostMapping("/file")
-    public ResponseEntity<String> uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return new ResponseEntity<String>(amazonService.uploadFile(file), HttpStatus.CREATED);
+    Logger logger = LoggerFactory.getLogger(MaterialController.class);
+
+    @PostMapping("/file/{subjectCode}")
+    public ResponseEntity<Material> uploadFile(@PathVariable String subjectCode, @RequestPart(value = "file") MultipartFile file) {
+        try {
+            Material material = materialService.uploadMaterial(subjectCode, file);
+            return new ResponseEntity<Material>(material, HttpStatus.CREATED);
+        } catch (IOException ex) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<String>> listAllFiles() {
-        return new ResponseEntity<List<String>>(amazonService.listFiles(), HttpStatus.OK);
+    public ResponseEntity<List<Material>> listAllFiles() {
+        return new ResponseEntity<List<Material>>(materialService.getMaterialList(), HttpStatus.OK);
     }
 
     @DeleteMapping("/file")
@@ -36,13 +49,14 @@ public class MaterialController {
         return new ResponseEntity<String>(amazonService.deleteFileFromS3Bucket(fileName), HttpStatus.OK);
     }
 
-    @GetMapping("/file/{keyname}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable String keyname) {
-        ByteArrayOutputStream downloadInputStream = amazonService.downloadFile(keyname);
+    @GetMapping("/file/{materialId}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable long materialId) {
+        Material material = materialService.getMaterialById(materialId).get();
+        ByteArrayOutputStream downloadInputStream = amazonService.downloadFile(material.getFileKey());
 
         return ResponseEntity.ok()
-                .contentType(contentType(keyname))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + keyname + "\"")
+                .contentType(contentType(material.getFileName()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + material.getFileName() + "\"")
                 .body(downloadInputStream.toByteArray());
     }
 
