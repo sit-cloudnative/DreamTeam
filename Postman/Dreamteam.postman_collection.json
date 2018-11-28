@@ -212,7 +212,7 @@
 								"id": "c51ebde2-1c55-4d74-aef2-8f7ca67c19c9",
 								"exec": [
 									"var json = pm.response.json()",
-									"tests[\"Response status is 201\"] = responseCode.code === 200",
+									"tests[\"Response status is 201\"] = responseCode.code === 201",
 									"tests[\"Username is 59130500089\"] = pm.expect(json.username).to.eql(\"59130500089\")",
 									"tests[\"Firstname is Vitsarut\"] = pm.expect(json.firstname).to.eql(\"Vitsarut\")",
 									"tests[\"Response time is acceptable\"] = responseTime < 3000",
@@ -272,7 +272,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -434,15 +440,68 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8081/curriculum/1/subjects",
+							"raw": "https://dreamteam-subjectservice.mybluemix.net/curriculum/1/subjects",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"dreamteam-subjectservice",
+								"mybluemix",
+								"net"
 							],
-							"port": "8081",
 							"path": [
 								"curriculum",
 								"1",
 								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search subject by code and name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ed3a7c9-ea3b-4f23-a0a0-2f9eabdd44dc",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-subjectservice.mybluemix.net/subjects?keyword=",
+							"protocol": "https",
+							"host": [
+								"dreamteam-subjectservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"subjects"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -454,20 +513,21 @@
 			"name": "Video Service",
 			"item": [
 				{
-					"name": "/videos/{subjectId}",
+					"name": "List all videos in subject id 2 (IT fun)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "90dc21e4-5fac-41c8-8259-3c13067401ea",
 								"exec": [
-									"pm.test(\"แสดง list video ของ subjectId 2\", function(){",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData[0].videoId).to.eql(8282);",
-									"    pm.expect(jsonData[0].videoName).to.eql(\"INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\");",
-									"    pm.expect(jsonData[0].lecturer).to.eql(\"Siam Yamsaengsung\");",
-									"    pm.expect(jsonData[0].videoThumbnail).to.eql(\"https://ngelearning.sit.kmutt.ac.th/api/video_image?id=8282\");",
-									"})"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"There are more than 1 video in subject id 2\"] = json.length > 1",
+									"tests[\"First video is id = 8282\"] = pm.expect(json[0].videoId).to.eql(8282)",
+									"tests[\"First video is name INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\"] = pm.expect(json[0].videoName).to.eql(\"INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\")",
+									"tests[\"First video is lecturer Siam Yamsaengsung\"] = pm.expect(json[0].lecturer).to.eql(\"Siam Yamsaengsung\")",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -475,40 +535,51 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-gateway.mybluemix.net/video-service/videos/2",
+							"raw": "https://dreamteam-videoservice.mybluemix.net/subject/2/videos",
 							"protocol": "https",
 							"host": [
-								"dreamteam-gateway",
+								"dreamteam-videoservice",
 								"mybluemix",
 								"net"
 							],
 							"path": [
-								"video-service",
-								"videos",
-								"2"
+								"subject",
+								"2",
+								"videos"
 							]
-						}
+						},
+						"description": "This test use to test there are more than 1 video in IT Fun. and test the first data of json"
 					},
 					"response": []
 				},
 				{
-					"name": "/video/{videoId}",
+					"name": "Get detail of video id 8282",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "371be581-7909-41e8-bf1b-47432ec5fcd1",
 								"exec": [
-									"pm.test(\"แสดง video ที่มี id 8263\", function(){",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.videoId).to.eql(8263);",
-									"})"
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"Video is id = 8282\"] = pm.expect(json.videoId).to.eql(8282)",
+									"tests[\"Video is name INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\"] = pm.expect(json.videoName).to.eql(\"INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\")",
+									"tests[\"Video is lecturer Siam Yamsaengsung\"] = pm.expect(json.lecturer).to.eql(\"Siam Yamsaengsung\")",
+									"tests[\"Video path is defined\"] = json.videoPath !== undefined",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -516,25 +587,31 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://dreamteam-gateway.mybluemix.net/video-service/video/8263",
+							"raw": "https://dreamteam-videoservice.mybluemix.net/video/8263",
 							"protocol": "https",
 							"host": [
-								"dreamteam-gateway",
+								"dreamteam-videoservice",
 								"mybluemix",
 								"net"
 							],
 							"path": [
-								"video-service",
 								"video",
 								"8263"
 							]
-						}
+						},
+						"description": "This test use to test the data of video id 8282"
 					},
 					"response": []
 				}
