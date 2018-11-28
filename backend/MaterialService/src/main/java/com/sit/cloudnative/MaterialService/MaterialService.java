@@ -67,4 +67,8 @@ public class MaterialService {
         return subjectCode + "/" + new Date().getTime() + "-" + multiPart.getOriginalFilename().replaceAll("[^.,a-zA-Z0-9]", "_");
     }
 
+    public List<Material> getMaterialListBySubjectCode(String subjectCode) {
+        return materialRepository.findBySubjectCode(subjectCode);
+    }
+
 }

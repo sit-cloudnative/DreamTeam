@@ -33,6 +33,11 @@ public class MaterialController {
         return new ResponseEntity<List<Material>>(materialService.getMaterialList(), HttpStatus.OK);
     }
     
+    @GetMapping("/files/{subjectCode}")
+    public ResponseEntity<List<Material>> listFilesBySubjectCode(@PathVariable String subjectCode) {
+        return new ResponseEntity<List<Material>>(materialService.getMaterialListBySubjectCode(subjectCode), HttpStatus.OK);
+    }
+    
     @PostMapping("/file/{subjectCode}")
     public ResponseEntity<Material> uploadFile(@PathVariable String subjectCode, @RequestPart(value = "file") MultipartFile file) {
         try {
