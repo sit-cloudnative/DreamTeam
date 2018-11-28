@@ -1,36 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sit.cloudnative.MaterialService;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table (name="materials")
+@Table(name = "materials")
+@EntityListeners(AuditingEntityListener.class)
 public class Material implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @NotNull
     private String fileName;
-    
+
     @NotNull
-    private String fileURL;
-    
+    private String fileKey;
+
     @NotNull
-    private long userId;
-    
-    
+    private String fileOwner;
+
+    @NotNull
+    private String subjectCode;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
     public Material() {
     }
 
@@ -41,7 +51,7 @@ public class Material implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    
+
     public String getFileName() {
         return fileName;
     }
@@ -50,20 +60,36 @@ public class Material implements Serializable {
         this.fileName = fileName;
     }
 
-    public String getFileURL() {
-        return fileURL;
+    public String getFileKey() {
+        return fileKey;
     }
 
-    public void setFileURL(String fileURL) {
-        this.fileURL = fileURL;
-    }
-    
-    public long getUserId() {
-        return userId;
+    public void setFileKey(String fileKey) {
+        this.fileKey = fileKey;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public String getFileOwner() {
+        return fileOwner;
+    }
+
+    public void setFileOwner(String fileOwner) {
+        this.fileOwner = fileOwner;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }
