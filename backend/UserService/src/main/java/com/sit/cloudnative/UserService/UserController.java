@@ -44,7 +44,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> authenticate(@Valid @RequestBody HashMap<String, String> inputUser,
                                              HttpServletRequest request) {
-        checkUsernameAndPassword(inputUser);
+        checkUsernameAndPassword(inputUser, request);
         try {
             User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
             String token = tokenService.createToken(user);
@@ -110,14 +110,14 @@ public class UserController {
         }
     }
     
-    private void checkUsernameAndPassword(HashMap<String, String> inputUser){
+    private void checkUsernameAndPassword(HashMap<String, String> inputUser, HttpServletRequest request){
         if(!inputUser.isEmpty()){
             if (!inputUser.containsKey("username")) {
-                logger.warn(System.currentTimeMillis() + " | " + "unknown user" + " | " + "request body does not contain username");
+                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not contain username");
                 throw new BadRequestException("RequestBody incorrect.");
             }
             if (!inputUser.containsKey("password")){
-                logger.warn(System.currentTimeMillis() + " | " + "unknown user" + " | " + "request body does not contain password");
+                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not contain password");
                 throw new BadRequestException("RequestBody incorrect.");
             }
         }else{
