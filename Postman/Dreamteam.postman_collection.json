@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ef84432f-ec76-4b0b-b5be-5e3c76ce1fe0",
+		"_postman_id": "cbcf22ea-5949-47c5-8e35-26d597b64a99",
 		"name": "Dreamteam",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -636,6 +636,240 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Material Service",
+			"item": [
+				{
+					"name": "Get all files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "760ceabe-63c3-4673-b43d-b0f566a8f1e3",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"There are more than 1 files\"] = json.length > 1",
+									"tests[\"First file is id = 1\"] = pm.expect(json[0].id).to.eql(1)",
+									"tests[\"First file is name Ch1_Introduction_to_DB_01_2017.pdf\"] = pm.expect(json[0].fileName).to.eql(\"Ch1_Introduction_to_DB_01_2017.pdf\")",
+									"tests[\"First file is filekey INT101/1543402208899-Ch1_Introduction_to_DB_01_2017.pdf\"] = pm.expect(json[0].fileKey).to.eql(\"INT101/1543402208899-Ch1_Introduction_to_DB_01_2017.pdf\")",
+									"tests[\"First file is owner is test\"] = pm.expect(json[0].fileOwner).to.eql(\"test\")",
+									"tests[\"First file is subjectcode is INT101\"] = pm.expect(json[0].subjectCode).to.eql(\"INT101\")",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-materialservice.mybluemix.net/files",
+							"protocol": "https",
+							"host": [
+								"dreamteam-materialservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get file INT102",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e224acac-0009-4a4a-a92e-78a0b4fe966f",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200",
+									"tests[\"File is id = 3\"] = pm.expect(json[0].id).to.eql(3)",
+									"tests[\"File is name Wk 1 Orientation.pdf\"] = pm.expect(json[0].fileName).to.eql(\"Wk 1 Orientation.pdf\")",
+									"tests[\"File is filekey INT102/1543402267672-Wk_1_Orientation.pdf\"] = pm.expect(json[0].fileKey).to.eql(\"INT102/1543402267672-Wk_1_Orientation.pdf\")",
+									"tests[\"File is owner is test\"] = pm.expect(json[0].fileOwner).to.eql(\"test\")",
+									"tests[\"File is subjectcode is INT102\"] = pm.expect(json[0].subjectCode).to.eql(\"INT102\")",
+									"tests[\"Response time is acceptable\"] = responseTime < 5000"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-materialservice.mybluemix.net/files/INT102",
+							"protocol": "https",
+							"host": [
+								"dreamteam-materialservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"files",
+								"INT102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "๊ี๊Upload file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b58d1b4-215b-433e-bd14-2e591c146357",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 201\"] = responseCode.code === 201"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://dreamteam-materialservice.mybluemix.net/file/INT103",
+							"protocol": "https",
+							"host": [
+								"dreamteam-materialservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"file",
+								"INT103"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "073c4497-729e-477d-aed2-7296f192d059",
+								"exec": [
+									"var json = pm.response.json()",
+									"tests[\"Response status is 200\"] = responseCode.code === 200"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-materialservice.mybluemix.net/file/9",
+							"protocol": "https",
+							"host": [
+								"dreamteam-materialservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"file",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7979a80b-6b54-488d-b874-6ed364d6285c",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://dreamteam-materialservice.mybluemix.net/file/2",
+							"protocol": "https",
+							"host": [
+								"dreamteam-materialservice",
+								"mybluemix",
+								"net"
+							],
+							"path": [
+								"file",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
