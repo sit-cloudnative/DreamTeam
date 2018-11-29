@@ -1,18 +1,13 @@
 import axios from 'axios'
-
-const instance = axios.create({
-  baseURL: 'https://dreamteam-gateway.mybluemix.net/',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': this.localStorage.getItem("token") || ' '
-  }
-});
-
 export const userService = (token) => {
   return axios.create({
     baseURL: 'https://dreamteam-userservice.mybluemix.net/',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers':'origin, content-type, accept, x-requested-with',
+      'Access-Control-Max-Age':'3600',
       'Authorization': token
     }
   });
@@ -38,6 +33,3 @@ export const videoService =  (token) => {
     }
   });
 }
-
-
-export default instance

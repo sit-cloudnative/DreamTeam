@@ -2,7 +2,6 @@ import React from 'react'
 import {userService} from '../../util/axios'
 import Head from 'next/head';
 import Router from 'next/router'
-import Footer from '../../components/Footer'
 
 export default class extends React.Component {
     constructor() {
@@ -14,20 +13,28 @@ export default class extends React.Component {
             },
             message: ''
         }
+        this.axios = {};
         this.handleLogin = this.handleLogin.bind(this)
     }
+
     async handleLogin(e) {
         e.preventDefault()
         console.log(this.state.username)
         console.log(this.state.password)
-        const { data } = await userService({
+        const { data } = await this.axios({
             method: 'post',
             data: {
                 username: this.state.username,
                 password: this.state.password
             },
-            url: 'user-service/login'
+            url: 'user-service/login',
+            headers:{
+                'Access-Control-Allow-Origin' : '*'
+            }
+            
         })
+        console.log('****************')
+        console.log(data)
         localStorage.setItem('token', data.token)
         localStorage.setItem('profileId', data.username)
         let localdata = localStorage.getItem('profileId')
@@ -40,6 +47,11 @@ export default class extends React.Component {
         }
 
     }
+
+    componentDidMount(){
+        this.axios = userService(localStorage.getItem('token'))
+    }
+
     render() {
         return (
             <div className="container">
