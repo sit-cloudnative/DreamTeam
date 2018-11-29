@@ -4,6 +4,9 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
+
+import com.sit.cloudnative.MaterialService.exception.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,7 +44,7 @@ public class MaterialController {
             Material material = materialService.uploadMaterial(subjectCode, file);
             return new ResponseEntity<Material>(material, HttpStatus.CREATED);
         } catch (IOException ex) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException();
         }
     }
     
