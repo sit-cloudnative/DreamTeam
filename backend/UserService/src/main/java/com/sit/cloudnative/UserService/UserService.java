@@ -10,7 +10,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) {
+    public UserService() {
+        
+    }
+	public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+	}
+
+	public User createUser(User user) {
         String password = user.getPassword();
         String hashPassword = password.hashCode() + "";
         user.setPassword(hashPassword);

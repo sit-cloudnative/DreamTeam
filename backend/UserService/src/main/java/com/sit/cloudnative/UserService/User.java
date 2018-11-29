@@ -44,9 +44,31 @@ public class User implements Serializable {
 
     @NotNull
     private String faculty;
-
+    
     @NotNull
     private int year;
+
+    @NotNull
+    private String role;
+
+
+    public User(String username, 
+                String password, 
+                String firstname, 
+                String lastname, 
+                String department, 
+                String faculty, 
+                int year,
+                String role) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.department = department;
+        this.faculty = faculty;
+        this.year = year;
+        this.role = role;
+    }
 
     public User() {
     }
@@ -123,6 +145,14 @@ public class User implements Serializable {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }
