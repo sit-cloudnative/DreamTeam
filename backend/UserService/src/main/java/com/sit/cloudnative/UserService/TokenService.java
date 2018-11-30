@@ -61,6 +61,7 @@ public class TokenService {
                     .withClaim("firstname", user.getFirstname())
                     .withClaim("lastname", user.getLastname())
                     .withClaim("year", user.getYear())
+                    .withClaim("role", user.getRole())
                     .sign(algorithm);
         }catch(JWTCreationException e){
             throw new JWTCreationException("Cannot properly create token", e);
@@ -75,6 +76,12 @@ public class TokenService {
     public String getUser(String token){
         DecodedJWT djwt = checkToken(token);
         Claim claim = djwt.getClaim("username");
+        return claim.asString();
+    }
+    
+    public String getRole(String token){
+        DecodedJWT djwt = checkToken(token);
+        Claim claim = djwt.getClaim("role");
         return claim.asString();
     }
 
