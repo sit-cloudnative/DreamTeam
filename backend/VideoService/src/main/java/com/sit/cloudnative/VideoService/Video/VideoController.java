@@ -41,7 +41,7 @@ public class VideoController {
     public ResponseEntity<Video> getVideo(@PathVariable long videoId, 
                                           @RequestHeader("Authorization") String auth,
                                           HttpServletRequest request){
-        validateToken(auth, request);
+        tokenService.validateToken(auth, request, logger);
         try {
             Video video = videoService.getVideoById(videoId);
             logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "watch video id (" + videoId + ")");
@@ -52,30 +52,4 @@ public class VideoController {
         }
     }
 
-    private void validateToken (String auth, HttpServletRequest request) {
-        if(auth.trim().isEmpty()){
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "Authorization token not found in header");
-            throw new BadRequestException("Not have value in Authorization");
-        }
-        try {
-            tokenService.checkToken(auth);
-        } catch (AlgorithmMismatchException e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "not match token algorithm (" + auth + ")");
-            throw new UnauthorizedException(e.getMessage());
-        } catch (SignatureVerificationException e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "secret key is not valid (" + auth + ")");
-            throw new UnauthorizedException(e.getMessage());
-        } catch (TokenExpiredException e) { 
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "token is expired (" + auth + ")");
-            throw new UnauthorizedException(e.getMessage());
-        } catch (InvalidClaimException e) { 
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "invalid claim value (" + auth + ")");
-            throw new UnauthorizedException(e.getMessage());
-        } catch (JWTDecodeException e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "token does not contain 3 parts (" + auth + ")");
-            throw new UnauthorizedException(e.getMessage());
-        } catch (Exception e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "unknown error (" + auth + ")");
-        }
-    }
 }
