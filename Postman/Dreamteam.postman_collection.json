@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cbcf22ea-5949-47c5-8e35-26d597b64a99",
+		"_postman_id": "d46cbcd2-4b12-41f6-a817-f5ba3cb044f0",
 		"name": "Dreamteam",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -215,6 +215,7 @@
 									"tests[\"Response status is 201\"] = responseCode.code === 201",
 									"tests[\"Username is 59130500089\"] = pm.expect(json.username).to.eql(\"59130500089\")",
 									"tests[\"Firstname is Vitsarut\"] = pm.expect(json.firstname).to.eql(\"Vitsarut\")",
+									"tests[\"Role is student\"] = pm.expect(json.role).to.eql(\"student\")",
 									"tests[\"Response time is acceptable\"] = responseTime < 3000",
 									"pm.globals.set(\"userId\", json.id)"
 								],
@@ -234,7 +235,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"59130500089\",\n\t\"password\": \"98000503195\",\n\t\"firstname\": \"Vitsarut\",\n\t\"lastname\": \"Udomphol\",\n\t\"department\": \"IT\",\n\t\"faculty\": \"SIT\",\n\t\"year\": \"3\"\n}"
+							"raw": "{\n\t\"username\": \"59130500089\",\n\t\"password\": \"98000503195\",\n\t\"firstname\": \"Vitsarut\",\n\t\"lastname\": \"Udomphol\",\n\t\"department\": \"IT\",\n\t\"faculty\": \"SIT\",\n\t\"year\": \"3\",\n\t\"role\": \"student\"\n}"
 						},
 						"url": {
 							"raw": "https://dreamteam-userservice.mybluemix.net/user",
@@ -666,7 +667,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -709,7 +716,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -752,6 +765,11 @@
 								"key": "Content-Type",
 								"name": "Content-Type",
 								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -810,7 +828,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -850,7 +874,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -866,6 +896,12 @@
 							"path": [
 								"file",
 								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "{{token}}"
+								}
 							]
 						}
 					},
