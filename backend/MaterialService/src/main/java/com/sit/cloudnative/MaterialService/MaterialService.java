@@ -28,7 +28,7 @@ public class MaterialService {
         return materialRepository.findById(id);
     }
 
-    public Material uploadMaterial(String subjectCode, MultipartFile multipartFile) throws IOException {
+    public Material uploadMaterial(String subjectCode, MultipartFile multipartFile, String owner) throws IOException {
         String OriginalName = multipartFile.getOriginalFilename();
         String uploadFileName = generateFileName(subjectCode, multipartFile);
         File file = convertMultiPartToFile(multipartFile);
@@ -38,7 +38,7 @@ public class MaterialService {
         Material material = new Material();
         material.setFileName(OriginalName);
         material.setFileKey(uploadFileName);
-        material.setFileOwner("test");
+        material.setFileOwner(owner);
         material.setSubjectCode(subjectCode);
         return materialRepository.save(material);
     }
