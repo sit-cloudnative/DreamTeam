@@ -7,9 +7,12 @@ E-Learning for School of Information Technology (SIT), KMUTT Students
 ### Getting Started
 run these below commands.
 ```
-1. yarn 
-2. yarn dev
+1. mvn clean package 
+2. mvn spring-boot:run
 ```
+or
+
+use dev_script.bat(for WINDOWS) to run all backend service
 
 ### Prerequisites
 
