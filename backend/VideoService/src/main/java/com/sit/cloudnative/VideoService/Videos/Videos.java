@@ -1,5 +1,6 @@
 package com.sit.cloudnative.VideoService.Videos;
 
+import java.util.Date;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,18 +15,22 @@ public class Videos {
 
     private String videoThumbnail;
 
+    private String videoDate;
+
     public Videos() {
     }
 
     @JsonCreator
     public Videos(@JsonProperty("video_id") long videoId,
-            @JsonProperty("video_name") String videoName,
-            @JsonProperty("teacher") Map<String, String> lecturer,
-            @JsonProperty("video_thumbnail") String videoThumbnail) {
+                  @JsonProperty("video_name") String videoName,
+                  @JsonProperty("teacher") Map<String, String> lecturer,
+                  @JsonProperty("video_thumbnail") String videoThumbnail,
+                  @JsonProperty("video_date") String videoDate) {
         this.videoId = videoId;
         this.videoName = videoName;
         this.lecturer = lecturer.get("teacher_name");
         this.videoThumbnail = videoThumbnail;
+        this.videoDate = videoDate;
     }
 
     @JsonProperty("video_id")
@@ -66,5 +71,13 @@ public class Videos {
     @JsonProperty("videoThumbnail")
     public String getVideoThumbnail() {
         return videoThumbnail;
+    }
+    @JsonProperty("videoDate")
+    public String getVideoDate() {
+        return videoDate;
+    }
+    @JsonProperty("video_date")
+    public void setVideoDate(String videoDate) {
+        this.videoDate = videoDate;
     }
 }
