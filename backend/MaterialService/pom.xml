@@ -48,7 +48,12 @@
                         <groupId>com.amazonaws</groupId>
                         <artifactId>aws-java-sdk-s3</artifactId>
                         <version>1.11.133</version>
-                 </dependency>
+                </dependency>
+                <dependency>
+                        <groupId>com.auth0</groupId>
+                        <artifactId>java-jwt</artifactId>
+                        <version>3.4.1</version>
+                </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
