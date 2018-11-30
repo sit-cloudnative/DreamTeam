@@ -18,7 +18,12 @@ public class SubjectService {
     @Autowired
     private CurriculumService curriculumService;
 
-    public List<Subject> getSubjectListByCurriculumId(long curriculumId) {
+    public SubjectService(CurriculumService curriculumService, SubjectAdapter subjectAdapter) {
+        this.curriculumService = curriculumService;
+        this.subjectAdapter = subjectAdapter;
+	}
+
+	public List<Subject> getSubjectListByCurriculumId(long curriculumId) {
         List<Subject> subjectList = subjectAdapter.getSubjectListByCurriculumId(curriculumId);
         return subjectList;
     }
