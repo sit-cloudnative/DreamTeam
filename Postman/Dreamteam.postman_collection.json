@@ -524,8 +524,8 @@
 									"var json = pm.response.json()",
 									"tests[\"Response status is 200\"] = responseCode.code === 200",
 									"tests[\"There are more than 1 video in subject id 2\"] = json.length > 1",
-									"tests[\"First video is id = 8282\"] = pm.expect(json[0].videoId).to.eql(8282)",
-									"tests[\"First video is name INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\"] = pm.expect(json[0].videoName).to.eql(\"INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.2\")",
+									"tests[\"First video is id = 9256\"] = pm.expect(json[0].videoId).to.eql(9256)",
+									"tests[\"First video is name ***INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.1\"] = pm.expect(json[0].videoName).to.eql(\"***INT 101 INFORMATION TECHNOLOGY FUNDAMENTAL G.1\")",
 									"tests[\"First video is lecturer Siam Yamsaengsung\"] = pm.expect(json[0].lecturer).to.eql(\"Siam Yamsaengsung\")",
 									"tests[\"Response time is acceptable\"] = responseTime < 5000",
 									""
