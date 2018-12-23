@@ -18,11 +18,11 @@ public class NGEApiHealth implements HealthIndicator {
 
     @Override
     public Health health() {
-        int errorCode = check();
-        if (errorCode == 0) {
-            return Health.down().withDetail("Code: ", errorCode).build();
+        int code = check();
+        if (code == 0) {
+            return Health.down().withDetail("Code: ", code).build();
         }
-        return Health.up().withDetail("Code", errorCode).build();
+        return Health.up().withDetail("Code", code).build();
     }
 
     public int check() {
@@ -30,9 +30,6 @@ public class NGEApiHealth implements HealthIndicator {
         if (video != null) {
             checkNum = 1;
         }
-        System.out.println("----------------------");
-        System.out.println("VideoName: " + video.getVideoName());
-        System.out.println("checkNum: " + checkNum);
         return checkNum;
     }
 }
