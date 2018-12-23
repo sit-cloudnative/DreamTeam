@@ -34,6 +34,11 @@ public class SubjectController {
 
     Logger logger = LoggerFactory.getLogger(SubjectController.class);
 
+    @GetMapping("/")
+    public ResponseEntity<String> welcome(){
+        return new ResponseEntity<String>("Welcome to Subject Service", HttpStatus.OK);
+    }
+	
     @RequestMapping(value = "/curriculum/{curriculumId}/subjects", method = RequestMethod.GET)
     public ResponseEntity<List<Subject>> getSubjectListByCurriculumId(@PathVariable("curriculumId") long curriculumId, 
                                                                       @RequestHeader("Authorization") String auth,

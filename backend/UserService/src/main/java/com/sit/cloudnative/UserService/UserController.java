@@ -34,87 +34,107 @@ public class UserController {
     private TokenService tokenService;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
-
+    
+	@GetMapping("/")
+    public ResponseEntity<String> welcome() {
+        return new ResponseEntity<String>("Welcome to User Service", HttpStatus.OK);
+    }
+	
     @PostMapping("/login")
     public ResponseEntity<User> authenticate(@Valid @RequestBody HashMap<String, String> inputUser,
-                                             HttpServletRequest request) {
+            HttpServletRequest request) {
         checkUsernameAndPassword(inputUser, request);
         try {
             User user = userService.findByUsernameAndPassword(inputUser.get("username"), inputUser.get("password"));
             String token = tokenService.createToken(user);
-            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "login to " + inputUser.get("username"));
+            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "login to "
+                    + inputUser.get("username"));
             user.setToken(token);
             return new ResponseEntity<User>(user, HttpStatus.OK);
         } catch (HttpClientErrorException | NullPointerException e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "userame or password is invalid");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | "
+                    + "userame or password is invalid");
             throw new NotFoundException("Not Found user. incorrect username or password.");
         }
     }
 
+    // @PostMapping("/login2")
+    // public ResponseEntity<User> authenticate2(@Valid @RequestBody HashMap<String,
+    // String> inputUser) {
+    // User user = userService.findByUsernameAndPassword(inputUser.get("username"),
+    // inputUser.get("password"));
+    // return new ResponseEntity<User>(user, HttpStatus.OK);
+    // }
+
     @PostMapping("/user")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user,
-                                           HttpServletRequest request) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user, HttpServletRequest request) {
         if (user == null) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not have username or password");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | "
+                    + "request body does not have username or password");
             throw new BadRequestException("RequestBody not have user");
         }
         try {
             User newUser = userService.createUser(user);
-            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "created user " + user.getUsername());
+            logger.info(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "created user "
+                    + user.getUsername());
             return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "duplicate username in database (" + user.getUsername() + ")");
+            logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | "
+                    + "duplicate username in database (" + user.getUsername() + ")");
             throw new BadRequestException(e.getMessage());
         }
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUserList(@RequestHeader("Authorization") String auth,
-                                                  HttpServletRequest request) {
+            HttpServletRequest request) {
         tokenService.validateToken(auth, request, logger);
         return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/user/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username, 
-                                        @RequestHeader("Authorization") String auth,
-                                        HttpServletRequest request ) {
+    public ResponseEntity<User> getUser(@PathVariable String username, @RequestHeader("Authorization") String auth,
+            HttpServletRequest request) {
         tokenService.validateToken(auth, request, logger);
         try {
             User user = userService.findByUsername(username);
             return new ResponseEntity<User>(user, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found username (" + username + ")");
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found username ("
+                    + username + ")");
             throw new NotFoundException(e.getMessage());
         }
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<Long> deleteUser(@PathVariable long id, 
-                                           @RequestHeader("Authorization") String auth,
-                                           HttpServletRequest request)  {
+    public ResponseEntity<Long> deleteUser(@PathVariable long id, @RequestHeader("Authorization") String auth,
+            HttpServletRequest request) {
         tokenService.validateToken(auth, request, logger);
         try {
             long deleteId = userService.deleteById(id);
-            logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "delete user (" + id + ")");
+            logger.info(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "delete user (" + id
+                    + ")");
             return new ResponseEntity<Long>(deleteId, HttpStatus.OK);
         } catch (HttpClientErrorException e) {
-            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found user id (" + id + ")");
+            logger.warn(System.currentTimeMillis() + " | " + tokenService.getUser(auth) + " | " + "not found user id ("
+                    + id + ")");
             throw new NotFoundException(e.getMessage());
         }
     }
-    
-    private void checkUsernameAndPassword(HashMap<String, String> inputUser, HttpServletRequest request){
-        if(!inputUser.isEmpty()){
+
+    private void checkUsernameAndPassword(HashMap<String, String> inputUser, HttpServletRequest request) {
+        if (!inputUser.isEmpty()) {
             if (!inputUser.containsKey("username")) {
-                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not contain username");
+                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | "
+                        + "request body does not contain username");
                 throw new BadRequestException("RequestBody incorrect.");
             }
-            if (!inputUser.containsKey("password")){
-                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | " + "request body does not contain password");
+            if (!inputUser.containsKey("password")) {
+                logger.warn(System.currentTimeMillis() + " | " + request.getRemoteAddr() + " | "
+                        + "request body does not contain password");
                 throw new BadRequestException("RequestBody incorrect.");
             }
-        }else{
+        } else {
             logger.warn("User try to login with null RequestBody");
             throw new BadRequestException("RequestBody incorrect.");
         }

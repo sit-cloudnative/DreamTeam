@@ -38,6 +38,11 @@ public class MaterialController {
 
     Logger logger = LoggerFactory.getLogger(MaterialController.class);
 
+    @GetMapping("/")
+    public ResponseEntity<String> welcome(){
+        return new ResponseEntity<String>("Welcome to Material Service", HttpStatus.OK);
+    }
+
     @GetMapping("/files")
     public ResponseEntity<List<Material>> getAllFiles(@RequestHeader("Authorization") String auth, HttpServletRequest request) {
         tokenService.validateToken(auth, request, logger);

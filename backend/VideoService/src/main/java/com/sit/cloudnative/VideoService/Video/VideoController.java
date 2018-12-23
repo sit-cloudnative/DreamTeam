@@ -37,6 +37,11 @@ public class VideoController {
 
     Logger logger = LoggerFactory.getLogger(VideoController.class);
     
+	@GetMapping("/")
+    public ResponseEntity<String> welcome() {
+        return new ResponseEntity<String>("Welcome to Video Service", HttpStatus.OK);
+    }
+	
     @GetMapping("/video/{videoId}")
     public ResponseEntity<Video> getVideo(@PathVariable long videoId, 
                                           @RequestHeader("Authorization") String auth,
