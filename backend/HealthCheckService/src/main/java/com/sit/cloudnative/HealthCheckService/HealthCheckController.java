@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HealthCheckController{
-
+public class HealthCheckController {
     @GetMapping("/")
-    public ResponseEntity<String> welcome(){
-        return new ResponseEntity<>("Welcome to HealthCheck Service",HttpStatus.OK);
+    public ResponseEntity<String> welcome() {
+        return new ResponseEntity<String>("Welcome to HealthCheck Service", HttpStatus.OK);
     }
 }
